@@ -1,0 +1,89 @@
+#! /bin/sh
+
+#set -v
+set -e
+
+if [ "$1" = "-v" ]
+then
+	VIEW=TRUE
+	shift
+fi
+
+if [ "$1" = "-l" ]
+then
+	VIEW=TRUE
+	LOOP=TRUE
+	shift
+fi
+
+FILES="$@"
+
+if [ -z "$FILES" ]
+then
+	FILES=*.md
+fi
+
+pdf()
+{
+	echo "$(basename "$1" .md).pdf"
+}
+
+compile()
+{
+	IN="$1"
+	HTML="$2"
+	OUT="$3"
+	echo "Compiling $IN"
+	pandoc \
+		--from=markdown+yaml_metadata_block+smart+strikeout+link_attributes+raw_html \
+		--standalone \
+		--pdf-engine=wkhtmltopdf \
+		--to=html \
+		-V css=/home/marcelm/.mdf/style.css \
+		"$IN" > "$HTML"
+	wkhtmltopdf -B 10mm -T 10mm -L 10mm -R 10mm -s A4 "$HTML" "$OUT"
+	if [ -z "$KEEP" ]; then rm "$HTML"; fi
+}
+
+make()
+{
+	IN="$1"
+	OUT="$2.pdf"
+	HTML="$2.html"
+	if [ ! -f "$OUT" -o "$IN" -nt "$OUT" ]
+	then
+		compile "$IN" "$HTML" "$OUT"
+	fi
+}
+
+make_all()
+{
+	echo "Considering $@"
+	for F in $FILES
+	do
+		make "$F" "$(basename "$F" .md)"
+	done
+}
+
+
+
+make_all $FILES
+
+if [ -n "$VIEW" ]
+then
+	for F in $FILES
+	do
+		evince "$(basename "$F" .md).pdf" &
+	done
+fi
+
+
+if [ -n "$VIEW" ]
+then
+	while true
+	do
+		inotifywait $FILES
+		sleep 0.4
+		make_all $FILES
+	done
+fi

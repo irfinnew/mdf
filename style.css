@@ -1,0 +1,40 @@
+body {
+	//font-family: Bitstream Vera Sans;
+	//font-family: Carlito;
+	//font-family: Liberation Sans;
+	//font-family: CMU Sans Serif;
+	font: 14pt Lato;
+}
+
+h1 { margin-top: 60pt; page-break-after: avoid; }
+h2 { margin-top: 50pt; page-break-after: avoid; }
+h3 { margin-top: 40pt; page-break-after: avoid; }
+h4 { margin-top: 30pt; page-break-after: avoid; }
+
+ul,ol,table,pre { margin: 25pt 0; }
+ul ul, ul ol, ol ul, ol ol { margin: 0; }
+li { margin: 5pt; } 
+a { text-decoration: underline; color: #0366d6; }
+h1, h2, h3, h4 { color: #0366d6; }
+//body > :first-child { margin-top: 0; }
+@page > :first-child { margin-top: 0; }
+hr { margin: 20pt 0; }
+
+code { background-color: #eaeaea; padding: 1pt 10pt; }
+pre { background-color: #eaeaea; padding: 10pt 10pt; }
+pre code { padding: 0; }
+
+blockquote { background-color: #fff7bb; margin: 10pt 0; padding: 1pt 20pt; border-left: 3px solid #e5d055; }
+
+table { border-collapse: collapse; }
+table th { border-left: 1px solid #aaa; padding: 1px 15px; }
+table td { border-left: 1px solid #aaa; padding: 1px 15px; }
+
+table tr td:first-child,th:first-child { border: none; }
+tbody tr:nth-child(odd) { background-color: #e5e5ea; }
+
+figure { text-align: center; }
+img { display: block; margin: 0 auto; }
+
+//ul { break-inside: avoid; }
+pagebreak { display: block; width: 0; height: 0; break-before: page; }
