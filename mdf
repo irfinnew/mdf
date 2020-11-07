@@ -3,6 +3,14 @@
 #set -v
 set -e
 
+if ! fc-match lato | grep -q Lato-Regular
+then
+	echo '###########################'
+	echo 'WARNING: Lato font missing!'
+	echo '###########################'
+	echo
+fi
+
 if [ "$1" = "-v" ]
 then
 	VIEW=TRUE
