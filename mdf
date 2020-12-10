@@ -86,7 +86,7 @@ then
 fi
 
 
-if [ -n "$VIEW" ]
+if [ -n "$LOOP" ]
 then
 	while true
 	do
