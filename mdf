@@ -90,7 +90,7 @@ if [ -n "$LOOP" ]
 then
 	while true
 	do
-		inotifywait $FILES
+		inotifywait -e close_write -e attrib -e move_self -e delete_self $FILES
 		sleep 0.4
 		make_all $FILES
 	done
