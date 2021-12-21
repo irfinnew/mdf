@@ -42,6 +42,7 @@ compile()
 	HTML="$2"
 	OUT="$3"
 	echo "Compiling $IN"
+	echo 'pandoc'
 	pandoc \
 		--from=markdown+yaml_metadata_block+smart+strikeout+link_attributes+raw_html \
 		--standalone \
@@ -49,7 +50,8 @@ compile()
 		--to=html \
 		-V css=/home/marcelm/.mdf/style.css \
 		"$IN" > "$HTML"
-	wkhtmltopdf -B 10mm -T 10mm -L 10mm -R 10mm -s A4 "$HTML" "$OUT"
+	echo 'wkhtmltopdf'
+	wkhtmltopdf --enable-local-file-access -B 10mm -T 10mm -L 10mm -R 10mm -s A4 "$HTML" "$OUT"
 	if [ -z "$KEEP" ]; then rm "$HTML"; fi
 }
 
