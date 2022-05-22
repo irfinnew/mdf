@@ -1,99 +1,100 @@
-#! /bin/sh
+#! /usr/bin/python3
 
-#set -v
-set -e
-
-if ! fc-match lato | grep -q Lato-Regular
-then
-	echo '###########################'
-	echo 'WARNING: Lato font missing!'
-	echo '###########################'
-	echo
-fi
-
-if [ "$1" = "-v" ]
-then
-	VIEW=TRUE
-	shift
-fi
-
-if [ "$1" = "-l" ]
-then
-	VIEW=TRUE
-	LOOP=TRUE
-	shift
-fi
-
-FILES="$@"
-
-if [ -z "$FILES" ]
-then
-	FILES=*.md
-fi
-
-pdf()
-{
-	echo "$(basename "$1" .md).pdf"
-}
-
-compile()
-{
-	IN="$1"
-	HTML="$2"
-	OUT="$3"
-	echo "Compiling $IN"
-	echo 'pandoc'
-	pandoc \
-		--from=markdown+yaml_metadata_block+smart+strikeout+link_attributes+raw_html \
-		--standalone \
-		--pdf-engine=wkhtmltopdf \
-		--to=html \
-		-V css=/home/marcelm/.mdf/style.css \
-		"$IN" > "$HTML"
-	echo 'wkhtmltopdf'
-	wkhtmltopdf --enable-local-file-access -B 10mm -T 10mm -L 10mm -R 10mm -s A4 "$HTML" "$OUT"
-	if [ -z "$KEEP" ]; then rm "$HTML"; fi
-}
-
-make()
-{
-	IN="$1"
-	OUT="$2.pdf"
-	HTML="$2.html"
-	if [ ! -f "$OUT" -o "$IN" -nt "$OUT" ]
-	then
-		compile "$IN" "$HTML" "$OUT"
-	fi
-}
-
-make_all()
-{
-	echo "Considering $@"
-	for F in $FILES
-	do
-		make "$F" "$(basename "$F" .md)"
-	done
-}
+import os
+import sys
+import time
+import shutil
+import argparse
+import tempfile
+import subprocess
 
 
-
-make_all $FILES
-
-if [ -n "$VIEW" ]
-then
-	for F in $FILES
-	do
-		evince "$(basename "$F" .md).pdf" &
-	done
-fi
+# Check font
+font_name = 'Noticia Text'
+if font_name.encode('ascii') not in subprocess.run(['fc-match', font_name], stdout=subprocess.PIPE).stdout:
+	print(f'Font "{font_name}" not found!')
+	exit(1)
 
 
-if [ -n "$LOOP" ]
-then
-	while true
-	do
-		inotifywait -e close_write -e attrib -e move_self -e delete_self $FILES
-		sleep 0.4
-		make_all $FILES
-	done
-fi
+# Check if md doc is newer than pdf, and if so, compile it
+def maybe_compile(md, imd, html, pdf):
+	try:
+		md_mtime = os.stat(md).st_mtime
+	except FileNotFoundError:
+		md_mtime = 0
+
+	try:
+		pdf_mtime = os.stat(pdf).st_mtime
+	except FileNotFoundError:
+		pdf_mtime = -1
+
+	if md_mtime > pdf_mtime:
+		compile(md_path, imd_path, html_path, pdf_path)
+
+
+# Compile md doc into pdf
+def compile(md, imd, html, pdf):
+	try:
+		shutil.copyfile(md, imd)
+	except FileNotFoundError:
+		with open(imd, 'w') as fd:
+			pass
+
+	print()
+	print('Running pandoc')
+	subprocess.run([
+		'pandoc',
+		'--from=markdown+yaml_metadata_block+smart+strikeout+link_attributes+raw_html',
+		'--standalone',
+		'--pdf-engine=wkhtmltopdf',
+		'--to=html',
+		'--variable=css:/home/marcelm/.mdf/style.css',
+		'--output=' + html,
+		imd,
+	], stdout=sys.stdout, stderr=sys.stderr)
+
+	print()
+	print('Running wkhtmltopdf')
+	subprocess.run([
+		'wkhtmltopdf',
+		'--enable-local-file-access',
+		'-B', '10mm', '-T', '10mm', '-L', '10mm', '-R', '10mm',
+		'-s', 'A4',
+		html,
+		pdf,
+	], stdout=sys.stdout, stderr=sys.stderr)
+
+
+# Arguments
+parser = argparse.ArgumentParser(description='Render MarkDown document to a PDF.')
+parser.add_argument('file', type=str, help='Input MarkDown file.')
+args = parser.parse_args()
+
+
+# Set up files
+tmp_dir = tempfile.TemporaryDirectory(prefix='mdf.')
+md_path = args.file
+if not md_path.endswith('.md'):
+	md_path += '.md'
+pdf_path = os.path.splitext(md_path)[0] + '.pdf'
+imd_path = f'{tmp_dir.name}/input.md'
+html_path = f'{tmp_dir.name}/output.html'
+log_path = f'{tmp_dir.name}/mdf.log'
+
+
+# Fix stdout/err, log file
+old_stdout = sys.stdout
+old_stderr = sys.stderr
+sys.stdout = open(log_path, 'w', buffering=1)
+sys.stderr = sys.stdout
+
+
+# Let's go
+print(f'tmp_dir = {tmp_dir}')
+maybe_compile(md_path, imd_path, html_path, pdf_path)
+evince_process = subprocess.Popen(['evince', pdf_path], stdout=sys.stdout, stderr=sys.stderr)
+vim_process = subprocess.Popen(['vim', md_path])
+
+while vim_process.poll() is None:
+	maybe_compile(md_path, imd_path, html_path, pdf_path)
+	time.sleep(0.1)  # Yeah, polling :/
