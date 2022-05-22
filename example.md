@@ -121,6 +121,10 @@ Force a page break with `<div style="page-break-before: always;"></div>`:
     <td>`[Named Link](https://example.com/)`</td>
   </tr>
   <tr>
+    <td class="center">[Link to Header 1](#header-1) <br>(broken in wkhtmlpdf)</td>
+    <td>`[Link to Header 1](#header-1)`</td>
+  </tr>
+  <tr>
     <td class="center">Footnote[^1]</td>
     <td>
 <pre>Footnote[^1]
