@@ -4,6 +4,16 @@ author: Jane Smith
 date: 12 February 2020
 ---
 
+```
+---
+title: MDF showcase document
+author: Jane Smith
+date: 12 February 2020
+---
+```
+
+# # Header 1
+
 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Cras rutrum at turpis in commodo.
 Proin nec risus ac urna semper ultrices id ut libero.
@@ -14,15 +24,6 @@ Fusce ut gravida arcu, et vulputate erat.
 Duis et porttitor sem.
 Fusce pulvinar mattis enim nec luctus.
 Donec quis fringilla justo.
-
-# # Header 1
-
-Suspendisse volutpat purus risus, a hendrerit enim ultrices id.
-Vivamus scelerisque porta lectus nec tempor.
-Fusce massa risus, tempus at tristique ut, tristique nec augue.
-Ut non maximus mauris.
-In lacinia neque leo, a interdum urna vestibulum non.
-Pellentesque eros nisi, eleifend sit amet ornare a, condimentum nec lacus.
  
 ## ## Header 2
 
@@ -36,17 +37,6 @@ Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos
 
 ### ### Header 3
 
-Pellentesque nisl massa, maximus sed arcu vel, pharetra ultrices metus.
-Sed faucibus vel neque et tempus.
-In rhoncus vehicula lacinia.
-Nunc scelerisque neque eget feugiat facilisis.
-Nam venenatis risus eu ante dictum bibendum.
-Nullam venenatis, mi vel dignissim faucibus, odio urna ullamcorper ex, laoreet dapibus dui risus nec est.
-Praesent posuere, turpis et feugiat vehicula, eros nisl pharetra leo, at lacinia mauris urna eget quam.
-Morbi ut porttitor dui.
-
-#### #### Header 4
-
 Praesent varius porta justo id placerat.
 Duis vehicula, dolor nec venenatis interdum, erat felis condimentum nunc, a aliquam mi nunc sed metus.
 Vestibulum eget neque ligula.
@@ -56,6 +46,17 @@ Pellentesque aliquet lectus vel sem maximus placerat.
 In quis tristique nulla, vel lobortis orci.
 Morbi venenatis vehicula nulla a faucibus.
 Morbi iaculis cursus justo a condimentum.
+
+#### #### Header 4
+
+Pellentesque nisl massa, maximus sed arcu vel, pharetra ultrices metus.
+Sed faucibus vel neque et tempus.
+In rhoncus vehicula lacinia.
+Nunc scelerisque neque eget feugiat facilisis.
+
+0123456789
+% & # @ â é ň ç đ ß µ œ ø α β γ δ ε π σ ω Ω « » ¢ $ € £
+
 
 ---
 
