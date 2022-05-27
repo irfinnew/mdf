@@ -147,13 +147,13 @@ custom HTML&lt;/span></pre>
 
  - Make a list with a dash,
  * Or an asterisk.
-   - Indenting nests.
+   - Indent for sublist.
 
 </td>
 <td>
-<pre>- Make a list with a dash,
+<pre> - Make a list with a dash,
  * Or an asterisk.
-   - Indenting nests.</pre>
+   - Indent for sublist.</pre>
 </td>
 </tr>
 
@@ -161,13 +161,13 @@ custom HTML&lt;/span></pre>
 <tr>
 <td>
 
- 1. Ordered lists with any number.
- 1. Really, any number.
+ 1. Ordered lists with starting number.
+ 1. Next items are automatic.
 
 </td>
 <td>
-<pre>1. Ordered lists with any number.
-1. Really, any number.</pre>
+<pre> 1. Ordered lists with starting number.
+ 1. Next items are automatic.</pre>
 </td>
 </tr>
 

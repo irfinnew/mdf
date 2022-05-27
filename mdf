@@ -10,7 +10,7 @@ import subprocess
 
 
 # Check font
-font_name = 'Noticia Text'
+font_name = 'Gentium Basic'
 if font_name.encode('ascii') not in subprocess.run(['fc-match', font_name], stdout=subprocess.PIPE).stdout:
 	print(f'Font "{font_name}" not found!')
 	exit(1)

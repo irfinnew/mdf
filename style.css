@@ -13,8 +13,13 @@ body {
 	font: 14pt Ubuntu;
 	*/
 
+	/*
 	font: 14pt Noticia Text;
 	line-height: 1.25;
+	*/
+
+	font: 16pt Gentium Basic, Gentium;
+	line-height: 1.1;
 
 	/*
 	font: 15pt Cambria;
@@ -36,7 +41,7 @@ h1, h2, h3, h4, header { color: #0366d6; font-weight: bold; page-break-after: av
 header#title-block-header { margin-bottom: 19mm; }
 header#title-block-header h1.title { margin: 0; display: inline; }
 header#title-block-header p.author { margin: 0; display: inline; float: right; clear: both; margin-top: 1.5em; }
-header#title-block-header p.date { margin: 0; display: inline; float: right; clear: both; margin-top: -2.5em; }
+header#title-block-header p.date { margin: 0; display: inline; float: right; clear: both; margin-top: -2.25em; }
 h1 { margin-top: 16mm; }
 h2 { margin-top: 13mm; }
 h3 { margin-top: 10mm; }
@@ -45,8 +50,8 @@ h4 { margin-top: 7mm; }
 a { text-decoration: underline; color: #0366d6; }
 hr { margin: 20pt 0; }
 
-pre, code { background-color: #eaeaea; }
-code { padding: 1pt 10pt; }
+pre, code { background-color: #eaeaea; font: 13pt monospace; }
+code { padding: 1pt 5pt; }
 pre { padding: 10pt 10pt; }
 pre code { padding: 0; }
 

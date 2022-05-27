@@ -1,0 +1,4 @@
+pandoc
+wkhtmltopdf
+evince
+fonts-sil-gentium-basic
