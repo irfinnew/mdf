@@ -38,10 +38,10 @@ ul ul, ul ol, ol ul, ol ol { margin: 0; }
 li { margin: 1mm; }
 
 h1, h2, h3, h4, header { color: #0366d6; font-weight: bold; page-break-after: avoid; margin-break: discard; }
-header#title-block-header { margin-bottom: 19mm; }
+header#title-block-header { margin-bottom: 19mm; position: relative; }
 header#title-block-header h1.title { margin: 0; display: inline; }
-header#title-block-header p.author { margin: 0; display: inline; float: right; clear: both; margin-top: 1.5em; }
-header#title-block-header p.date { margin: 0; display: inline; float: right; clear: both; margin-top: -2.25em; }
+header#title-block-header p.date { margin: 0; display: inline; position: absolute; top: 0; right: 0; }
+header#title-block-header p.author { margin: 0; display: inline; position: absolute; top: 1.5em; right: 0; text-align: right; }
 h1 { margin-top: 16mm; }
 h2 { margin-top: 13mm; }
 h3 { margin-top: 10mm; }
