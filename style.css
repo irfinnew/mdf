@@ -18,8 +18,12 @@ body {
 	line-height: 1.25;
 	*/
 
+	/*
 	font: 16pt Gentium Basic, Gentium;
 	line-height: 1.1;
+	*/
+
+	font: 15pt Candara;
 
 	/*
 	font: 15pt Cambria;
@@ -38,6 +42,7 @@ ul ul, ul ol, ol ul, ol ol { margin: 0; }
 li { margin: 1mm; }
 
 h1, h2, h3, h4, header { color: #0366d6; font-weight: bold; page-break-after: avoid; margin-break: discard; }
+h1, h2, h3, h4 { font-family: Gentium Basic, Gentium; }
 header#title-block-header { margin-bottom: 19mm; position: relative; }
 header#title-block-header h1.title { margin: 0; display: inline; }
 header#title-block-header p.date { margin: 0; display: inline; position: absolute; top: 0; right: 0; }
@@ -66,6 +71,7 @@ tbody tr:nth-child(odd) { background-color: #e5e5ea; }
 
 figure { text-align: center; }
 img { display: block; margin: 0 auto; }
+fa { font: 14pt "Font Awesome 6 Pro"; font-style: normal; }
 
 pre { break-inside: avoid; }
 /* ul { break-inside: avoid; } */
