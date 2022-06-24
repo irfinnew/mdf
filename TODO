@@ -1,0 +1,11 @@
+ - Implement options / actions
+ - Use $EDITOR, system PDF viewer
+ - Add configuration file
+ - Add extra global CSS
+ - Add per-document CSS
+ - Watch CSS files, images
+ - Do something smart with paper size
+ - Make margins configurable
+ - write README
+ - write guide
+ - use Weasyprint?
