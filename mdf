@@ -16,6 +16,8 @@ def ensure_font(name):
 ensure_font('Candara')
 ensure_font('Gentium Basic')
 
+MDF_PATH = os.path.dirname(os.path.realpath(sys.argv[0]))
+
 
 # Check if md doc is newer than pdf, and if so, compile it
 def maybe_compile(md, imd, html, pdf):
@@ -49,7 +51,7 @@ def compile(md, imd, html, pdf):
 		'--standalone',
 		'--pdf-engine=wkhtmltopdf',
 		'--to=html',
-		'--variable=css:/home/marcelm/.mdf/style.css',
+		f'--variable=css:{MDF_PATH}/style.css',
 		'--output=' + html,
 		imd,
 	], stdout=sys.stdout, stderr=sys.stderr)
