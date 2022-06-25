@@ -3,10 +3,10 @@
 import os
 import sys
 import time
-import shutil
 import argparse
-import tempfile
 import subprocess
+
+import pypandoc
 
 
 # FIXME: hmm, what to do with this?
@@ -19,7 +19,88 @@ ensure_font('Gentium Basic')
 
 
 
-INSTALL_PATH = os.path.dirname(os.path.realpath(sys.argv[0]))
+class Document:
+	def __init__(self, filename, config):
+		self.config = config
+		if not filename.endswith('.md'):
+			filename += '.md'
+		self.md_path = filename
+		self.pdf_path = os.path.splitext(self.md_path)[0] + '.pdf'
+		self.html = ''
+		self.dependencies = [self.md_path]  # FIXME: should include CSS, images
+
+
+	def uptodate(self):
+		try:
+			md_mtime = os.stat(self.md_path).st_mtime
+		except FileNotFoundError:
+			md_mtime = 0
+
+		try:
+			pdf_mtime = os.stat(self.pdf_path).st_mtime
+		except FileNotFoundError:
+			pdf_mtime = -1
+
+		return md_mtime <= pdf_mtime
+
+
+	def compile(self, force=False, missing_ok=False):
+		if not force and self.uptodate():
+			return
+		self.to_html(missing_ok=missing_ok)
+		self.to_pdf()
+
+
+	def to_html(self, missing_ok=False):
+		try:
+			with open(self.md_path) as fd:
+				md_text = fd.read()
+		except FileNotFoundError:
+			if missing_ok:
+				md_text = '_Start typing your document!_'
+			else:
+				raise
+
+		self.html = pypandoc.convert_text(
+			md_text,
+			'html',
+			format='md',
+			extra_args=[
+				'--from=markdown+yaml_metadata_block+smart+strikeout+link_attributes+raw_html',
+				'--standalone',
+				'--pdf-engine=wkhtmltopdf',
+				'--to=html',
+				f'--css={self.config.install_path}/style.css'
+			],
+		)
+
+
+	def to_pdf(self):
+		subprocess.run(['wkhtmltopdf',
+			'--log-level', 'warn',
+			'--enable-local-file-access',
+			'-B', '10mm', '-T', '10mm', '-L', '10mm', '-R', '10mm',
+			'-s', 'A4',
+			'-',
+			self.pdf_path,
+		], input=self.html.encode(), stdout=sys.stdout, stderr=subprocess.DEVNULL)
+
+
+	def __str__(self):
+		return repr(self)
+
+
+	def __repr__(self):
+		return f'Document({self.md_path})'
+
+
+
+class Config:
+	pass
+
+Config.install_path = os.path.dirname(os.path.realpath(sys.argv[0]))
+
+
 
 # Parse command line arguments
 parser = argparse.ArgumentParser(description='Compile MarkDown document to a PDF. If no actions are specified, assume --edit --view.')
@@ -28,108 +109,45 @@ parser.add_argument('--force-compile', '-C', action='store_true', help='Compile 
 parser.add_argument('--watch', '-w', action='store_true', help='Watch document, compile if updated.')
 parser.add_argument('--edit', '-e', action='store_true', help='Edit document, and watch for updates.')
 parser.add_argument('--view', '-v', action='store_true', help='Launch PDF viewer for compiled document.')
-parser.add_argument('file', type=str, nargs=None, help='Input MarkDown file(s).')
+parser.add_argument('file', type=str, nargs='+', help='Input MarkDown file(s).')
 args = parser.parse_args()
 
 if not (args.compile or args.force_compile or args.watch or args.edit):
 	args.edit = True
 if args.edit:
 	args.watch = True
+	args.view = True
 if args.watch:
 	args.compile = True
 if args.force_compile:
 	args.compile = True
 
-
-
-# Check if md doc is newer than pdf, and if so, compile it
-def maybe_compile(md, imd, html, pdf):
-	try:
-		md_mtime = os.stat(md).st_mtime
-	except FileNotFoundError:
-		md_mtime = 0
-
-	try:
-		pdf_mtime = os.stat(pdf).st_mtime
-	except FileNotFoundError:
-		pdf_mtime = -1
-
-	if md_mtime > pdf_mtime:
-		compile(md_path, imd_path, html_path, pdf_path)
+documents = [Document(f, Config) for f in args.file]
+print(documents)
 
 
 
-# Compile md doc into pdf
-def compile(md, imd, html, pdf):
-	try:
-		shutil.copyfile(md, imd)
-	except FileNotFoundError:
-		with open(imd, 'w') as fd:
-			pass
-
-	print()
-	print('Running pandoc')
-	subprocess.run([
-		'pandoc',
-		'--from=markdown+yaml_metadata_block+smart+strikeout+link_attributes+raw_html',
-		'--standalone',
-		'--pdf-engine=wkhtmltopdf',
-		'--to=html',
-		f'--variable=css:{INSTALL_PATH}/style.css',
-		'--output=' + html,
-		imd,
-	], stdout=sys.stdout, stderr=sys.stderr)
-
-	print()
-	print('Running wkhtmltopdf')
-	subprocess.run([
-		'wkhtmltopdf',
-		'--enable-local-file-access',
-		'-B', '10mm', '-T', '10mm', '-L', '10mm', '-R', '10mm',
-		'-s', 'A4',
-		html,
-		pdf,
-	], stdout=sys.stdout, stderr=sys.stderr)
-
-
-
-# Set up files
-tmp_dir = tempfile.TemporaryDirectory(prefix='mdf.')
-md_path = args.file
-if not md_path.endswith('.md'):
-	md_path += '.md'
-pdf_path = os.path.splitext(md_path)[0] + '.pdf'
-imd_path = f'{tmp_dir.name}/input.md'
-html_path = f'{tmp_dir.name}/output.html'
-log_path = f'{tmp_dir.name}/mdf.log'
-
-
-
-# Fix stdout/err, log file
-old_stdout = sys.stdout
-old_stderr = sys.stderr
-sys.stdout = open(log_path, 'w', buffering=1)
-sys.stderr = sys.stdout
-
-
-
-# Let's go
-print(f'tmp_dir = {tmp_dir}')
 if args.compile:
-	if args.force_compile:
-		compile(md_path, imd_path, html_path, pdf_path)
-	else:
-		maybe_compile(md_path, imd_path, html_path, pdf_path)
+	for d in documents:
+		try:
+			d.compile(force=args.force_compile, missing_ok=args.edit)
+		except FileNotFoundError as e:
+			print(e)
+			exit()
 
 if args.view:
-	evince_process = subprocess.Popen(['evince', pdf_path], stdout=sys.stdout, stderr=sys.stderr)
+	evince_process = subprocess.Popen(['evince'] + [d.pdf_path for d in documents])
 
 if args.edit:
-	vim_process = subprocess.Popen(['vim', md_path])
+	vim_process = subprocess.Popen(['vim'] + [d.md_path for d in documents])
 else:
 	vim_process = None
 
-if args.watch:
-	while vim_process is None or vim_process.poll() is None:
-		maybe_compile(md_path, imd_path, html_path, pdf_path)
-		time.sleep(0.1)  # Yeah, polling :/
+try:
+	if args.watch:
+		while vim_process is None or vim_process.poll() is None:
+			for d in documents:
+				d.compile()
+			time.sleep(0.1)  # FIXME: Yeah, polling :/
+except KeyboardInterrupt:
+	pass

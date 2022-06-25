@@ -1,4 +1,3 @@
- - Implement options / actions
  - Use $EDITOR, system PDF viewer
  - Add configuration file
  - Add extra global CSS
@@ -8,4 +7,6 @@
  - Make margins configurable
  - write README
  - write guide
- - use Weasyprint?
+ - use Weasyprint? (had some issue, forgot what)
+ - use python pandoc bindings?
+ - use python-markdown(2)?
