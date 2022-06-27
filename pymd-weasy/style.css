@@ -1,0 +1,107 @@
+body {
+	/* font-family: Bitstream Vera Sans;
+	font-family: Carlito;
+	font-family: Liberation Sans;
+	font-family: CMU Sans Serif; */
+
+	/*
+	font: 16pt "MarcoPEW03-Regular";
+	line-height: 1.1;
+	*/
+
+	/*
+	font: 14pt Ubuntu;
+	*/
+
+	/*
+	font: 14pt Noticia Text;
+	line-height: 1.25;
+	*/
+
+	/*
+	font: 16pt Gentium Basic, Gentium;
+	line-height: 1.1;
+	*/
+
+	font: 15pt Candara;
+
+	/*
+	font: 15pt Cambria;
+	line-height: 1.1;
+	*/
+
+	/*
+	font: 16pt Alegreya, Cambria;
+	line-height: 1.1;
+	*/
+}
+
+@page { margin: 10mm; }
+h1, h2, h3, h4, p, ol, ul, table, pre, blockquote, figure { margin: 7mm 0; }
+ul ul, ul ol, ol ul, ol ol { margin: 0; }
+li { margin: 1mm; }
+
+h1, h2, h3, h4, header { color: #0366d6; font-weight: bold; page-break-after: avoid; margin-break: discard; }
+h1, h2, h3, h4 { font-family: Gentium Basic, Gentium; }
+header#title-block-header { margin-bottom: 19mm; position: relative; }
+header#title-block-header h1.title { margin: 0; display: inline; }
+header#title-block-header p.date { margin: 0; display: inline; position: absolute; top: 0; right: 0; }
+header#title-block-header p.author { margin: 0; display: inline; position: absolute; top: 1.5em; right: 0; text-align: right; }
+h1 { margin-top: 16mm; }
+h2 { margin-top: 13mm; }
+h3 { margin-top: 10mm; }
+h4 { margin-top: 7mm; }
+
+a { text-decoration: underline; color: #0366d6; }
+hr { margin: 20pt 0; }
+
+pre, code { background-color: #eaeaea; font: 13pt monospace; }
+code { padding: 1pt 5pt; }
+pre { padding: 10pt 10pt; }
+pre code { padding: 0; }
+
+blockquote { background-color: #fff7bb; padding: 0.1pt 7mm; border-left: 3px solid #e5d055; }
+blockquote p, blockquote blockquote { margin: 3mm 0; }
+
+table { border-collapse: collapse; }
+table th { border-left: 1px solid #aaa; padding: 2px 15px; }
+table td { border-left: 1px solid #aaa; padding: 2px 15px; }
+table tr td:first-child,th:first-child { border: none; }
+tbody tr:nth-child(odd) { background-color: #e5e5ea; }
+
+figure { text-align: center; }
+img { display: block; margin: 0 auto; }
+fa { font: 14pt "Font Awesome 6 Pro"; font-style: normal; }
+
+pre { break-inside: avoid; }
+/* ul { break-inside: avoid; } */
+/*pagebreak { display: inline; width: 0; height: 0; margin: 0; padding: 0; break-after: page; } */
+
+/* Hahaha hack for weasyprint :') */
+/*
+input[type="checkbox"] {
+	vertical-align: middle;
+	margin-right: 1mm;
+
+	border: 1px solid #a9a9a9;
+	border-radius: .25em;
+	width: 1em;
+	height: 1em;
+}
+
+input[checked]:after
+{ 
+	content: '';
+	display: block;
+	width: 4px;
+	height: 7px;
+
+	position:relative;
+	top:1px;
+	left:4px;
+
+	border: solid #000;
+	border-width: 0 2px 2px 0;
+	transform: rotate(45deg);
+}
+*/
