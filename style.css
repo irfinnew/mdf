@@ -1,14 +1,11 @@
-body {
-	font: 11.5pt Candara;
-}
-
+body { font: 10pt sans-serif; }
 @page { margin: 10mm; }
+
 h1, h2, h3, h4, p, ol, ul, table, pre, blockquote, figure { margin: 7mm 0; }
 ul ul, ul ol, ol ul, ol ol { margin: 0; }
 li { margin: 1mm; }
 
 h1, h2, h3, h4, header { color: #0366d6; font-weight: bold; page-break-after: avoid; margin-break: discard; }
-h1, h2, h3, h4 { font-family: Gentium Basic, Gentium; }
 header { margin-bottom: 19mm; }
 header h1.title { margin: 0; }
 header p.date, header p.author { float: right; clear: both; margin: 0; text-align: right; }
@@ -20,7 +17,7 @@ h4 { margin-top: 7mm; }
 a { text-decoration: underline; color: #0366d6; }
 hr { margin: 20pt 0; }
 
-pre, code { background-color: #eaeaea; font: 13pt monospace; }
+pre, code { background-color: #eaeaea; }
 code { padding: 1pt 5pt; }
 pre { padding: 10pt 10pt; }
 pre code { padding: 0; }
@@ -36,14 +33,13 @@ tbody tr:nth-child(odd) { background-color: #e5e5ea; }
 
 figure { text-align: center; }
 img { display: block; margin: 0 auto; }
-fa { font: 14pt "Font Awesome 6 Pro"; font-style: normal; }
 
 pre { break-inside: avoid; }
 /* ul { break-inside: avoid; } */
-/*pagebreak { display: inline; width: 0; height: 0; margin: 0; padding: 0; break-after: page; } */
+page-break { display: block; height: 0; margin: 0; padding: 0; break-after: always; }
 
-/* Hahaha hack for weasyprint :') */
-/*
+/* Render checkboxes in weasyprint. */
+ul.checklist { list-style: none; }
 input[type="checkbox"] {
 	vertical-align: middle;
 	margin-right: 1mm;
@@ -53,7 +49,6 @@ input[type="checkbox"] {
 	width: 1em;
 	height: 1em;
 }
-
 input[checked]:after
 { 
 	content: '';
@@ -68,5 +63,4 @@ input[checked]:after
 	border: solid #000;
 	border-width: 0 2px 2px 0;
 	transform: rotate(45deg);
-}
-*/
+

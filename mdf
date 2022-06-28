@@ -72,12 +72,14 @@ class Document:
 			else:
 				raise
 
+		# FIXME: catch ModuleNotFoundError
 		extensions = [
 			'meta',
 			'fenced_code',
 			'md_in_html',
 			'tables',
 			'attr_list',
+			# 'markdown_checklist.extension',
 		]
 		parser = markdown.Markdown(extensions=extensions)
 		html_text = parser.convert(md_text)
@@ -88,7 +90,7 @@ class Document:
 		headers = []
 		for name, tag in {'date': 'p', 'author': 'p', 'title': 'h1'}.items():
 			try:
-				txt = strip_p(parser.convert('<br>'.join(meta[name])))
+				txt = strip_p(parser.convert('<br>\n'.join(meta[name])))
 				headers.append(f'<{tag} class="{name}">{txt}</{tag}>')
 			except KeyError:
 				pass
@@ -101,12 +103,17 @@ class Document:
 
 
 	def to_pdf(self):
-		# FIXME: base_url = path(md_file) ??
-		wp = weasyprint.HTML(string=self.html, base_url='.')
-		# FIXME: find CSS files
-		# FIXME: margins
+		wp = weasyprint.HTML(string=self.html, base_url=os.path.dirname(self.md_path))
+
+		stylesheets = [weasyprint.CSS(filename=f'{self.config.install_path}/style.css')]
+		if self.config.user_css:
+			try:
+				stylesheets.append(weasyprint.CSS(filename=f'{self.config.config_path}/style.css'))
+			except FileNotFoundError:
+				pass
+
 		# FIXME: papersize
-		wp.write_pdf(self.pdf_path, stylesheets=[weasyprint.CSS(filename=f'{self.config.install_path}/style.css')], presentational_hints=True)
+		wp.write_pdf(self.pdf_path, stylesheets=stylesheets, presentational_hints=True)
 
 	def __str__(self):
 		return repr(self)
@@ -121,6 +128,7 @@ class Config:
 	pass
 
 Config.install_path = os.path.dirname(os.path.realpath(sys.argv[0]))
+Config.config_path = os.path.expanduser('~/.mdf')
 
 
 
@@ -131,8 +139,11 @@ parser.add_argument('--force-compile', '-C', action='store_true', help='Compile 
 parser.add_argument('--watch', '-w', action='store_true', help='Watch document, compile if updated.')
 parser.add_argument('--edit', '-e', action='store_true', help='Edit document, and watch for updates.')
 parser.add_argument('--view', '-v', action='store_true', help='Launch PDF viewer for compiled document.')
+parser.add_argument('--no-user-css', '-U', action='store_true', help='Don\'t use ~/.mdf/style.css.')
 parser.add_argument('file', type=str, nargs='+', help='Input MarkDown file(s).')
 args = parser.parse_args()
+
+Config.user_css = not args.no_user_css
 
 if not (args.compile or args.force_compile or args.watch or args.edit):
 	args.edit = True
