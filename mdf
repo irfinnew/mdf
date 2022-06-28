@@ -12,16 +12,6 @@ import weasyprint
 
 
 
-# FIXME: hmm, what to do with this?
-def ensure_font(name):
-	if name.encode('ascii') not in subprocess.run(['fc-match', name], stdout=subprocess.PIPE).stdout:
-		print(f'Font "{name}" not found!')
-		exit(1)
-ensure_font('Candara')
-ensure_font('Gentium Basic')
-
-
-
 # Strip enclosing <p> tags
 def strip_p(s):
 	if s.lower().startswith('<p>') and s.lower().endswith('</p>'):

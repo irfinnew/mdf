@@ -26,9 +26,8 @@ blockquote { background-color: #fff7bb; padding: 0.1pt 7mm; border-left: 3px sol
 blockquote p, blockquote blockquote { margin: 3mm 0; }
 
 table { border-collapse: collapse; }
-table th { border-left: 1px solid #aaa; padding: 2px 15px; }
-table td { border-left: 1px solid #aaa; padding: 2px 15px; }
-table tr td:first-child,th:first-child { border: none; }
+table thead th, table tbody td { border-left: 1px solid #aaa; padding: 1pt 10pt; }
+table tr td:first-child, table tr th:first-child { border: none; }
 tbody tr:nth-child(odd) { background-color: #e5e5ea; }
 
 figure { text-align: center; }
@@ -63,4 +62,4 @@ input[checked]:after
 	border: solid #000;
 	border-width: 0 2px 2px 0;
 	transform: rotate(45deg);
-
+}
