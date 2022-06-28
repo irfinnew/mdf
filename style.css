@@ -1,39 +1,5 @@
 body {
-	/* font-family: Bitstream Vera Sans;
-	font-family: Carlito;
-	font-family: Liberation Sans;
-	font-family: CMU Sans Serif; */
-
-	/*
-	font: 16pt "MarcoPEW03-Regular";
-	line-height: 1.1;
-	*/
-
-	/*
-	font: 14pt Ubuntu;
-	*/
-
-	/*
-	font: 14pt Noticia Text;
-	line-height: 1.25;
-	*/
-
-	/*
-	font: 16pt Gentium Basic, Gentium;
-	line-height: 1.1;
-	*/
-
-	font: 15pt Candara;
-
-	/*
-	font: 15pt Cambria;
-	line-height: 1.1;
-	*/
-
-	/*
-	font: 16pt Alegreya, Cambria;
-	line-height: 1.1;
-	*/
+	font: 11.5pt Candara;
 }
 
 @page { margin: 10mm; }
@@ -43,10 +9,9 @@ li { margin: 1mm; }
 
 h1, h2, h3, h4, header { color: #0366d6; font-weight: bold; page-break-after: avoid; margin-break: discard; }
 h1, h2, h3, h4 { font-family: Gentium Basic, Gentium; }
-header#title-block-header { margin-bottom: 19mm; position: relative; }
-header#title-block-header h1.title { margin: 0; display: inline; }
-header#title-block-header p.date { margin: 0; display: inline; position: absolute; top: 0; right: 0; }
-header#title-block-header p.author { margin: 0; display: inline; position: absolute; top: 1.5em; right: 0; text-align: right; }
+header { margin-bottom: 19mm; }
+header h1.title { margin: 0; }
+header p.date, header p.author { float: right; clear: both; margin: 0; text-align: right; }
 h1 { margin-top: 16mm; }
 h2 { margin-top: 13mm; }
 h3 { margin-top: 10mm; }

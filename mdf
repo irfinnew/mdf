@@ -1,4 +1,4 @@
-#! /usr/bin/python3
+#! /usr/bin/env python3
 
 import os
 import sys
@@ -6,7 +6,9 @@ import time
 import argparse
 import subprocess
 
-import pypandoc
+import markdown
+import weasyprint
+
 
 
 # FIXME: hmm, what to do with this?
@@ -16,6 +18,15 @@ def ensure_font(name):
 		exit(1)
 ensure_font('Candara')
 ensure_font('Gentium Basic')
+
+
+
+# Strip enclosing <p> tags
+def strip_p(s):
+	if s.lower().startswith('<p>') and s.lower().endswith('</p>'):
+		return s[3:-4]
+	else:
+		return s
 
 
 
@@ -61,30 +72,41 @@ class Document:
 			else:
 				raise
 
-		self.html = pypandoc.convert_text(
-			md_text,
-			'html',
-			format='md',
-			extra_args=[
-				'--from=markdown+yaml_metadata_block+smart+strikeout+link_attributes+raw_html',
-				'--standalone',
-				'--pdf-engine=wkhtmltopdf',
-				'--to=html',
-				f'--css={self.config.install_path}/style.css'
-			],
-		)
+		extensions = [
+			'meta',
+			'fenced_code',
+			'md_in_html',
+			'tables',
+			'attr_list',
+		]
+		parser = markdown.Markdown(extensions=extensions)
+		html_text = parser.convert(md_text)
+
+		meta = parser.Meta
+		title = '<br>'.join(meta['title'])
+
+		headers = []
+		for name, tag in {'date': 'p', 'author': 'p', 'title': 'h1'}.items():
+			try:
+				txt = strip_p(parser.convert('<br>'.join(meta[name])))
+				headers.append(f'<{tag} class="{name}">{txt}</{tag}>')
+			except KeyError:
+				pass
+		if headers:
+			headers = '\n'.join(['<header>'] + headers + ['</header>'])
+
+		self.html = f'<html>\n<body>\n{headers}\n{html_text}\n</body>\n</html>\n'
+		with open('out.html', 'w') as fd:
+			fd.write(self.html)
 
 
 	def to_pdf(self):
-		subprocess.run(['wkhtmltopdf',
-			'--log-level', 'warn',
-			'--enable-local-file-access',
-			'-B', '10mm', '-T', '10mm', '-L', '10mm', '-R', '10mm',
-			'-s', 'A4',
-			'-',
-			self.pdf_path,
-		], input=self.html.encode(), stdout=sys.stdout, stderr=subprocess.DEVNULL)
-
+		# FIXME: base_url = path(md_file) ??
+		wp = weasyprint.HTML(string=self.html, base_url='.')
+		# FIXME: find CSS files
+		# FIXME: margins
+		# FIXME: papersize
+		wp.write_pdf(self.pdf_path, stylesheets=[weasyprint.CSS(filename=f'{self.config.install_path}/style.css')], presentational_hints=True)
 
 	def __str__(self):
 		return repr(self)
@@ -124,6 +146,7 @@ if args.force_compile:
 
 documents = [Document(f, Config) for f in args.file]
 print(documents)
+print(f'Weasyprint v{weasyprint.VERSION}')
 
 
 
@@ -151,3 +174,20 @@ try:
 			time.sleep(0.1)  # FIXME: Yeah, polling :/
 except KeyboardInterrupt:
 	pass
+
+
+
+#from html.parser import HTMLParser
+#
+#class MyHTMLParser(HTMLParser):
+#	def __init__(self, *args, **kwargs):
+#		super().__init__(*args, **kwargs)
+#		self.output = ''
+#
+#	def handle_starttag(self, tag, attrs):
+#		if tag == 'img':
+#			print('IMAGE', attrs)
+#
+#parser = MyHTMLParser()
+#
+#parser.feed(html)

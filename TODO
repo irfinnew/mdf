@@ -7,8 +7,6 @@
  - Make margins configurable
  - write README
  - write guide
- - use Weasyprint? (had some issue, forgot what)
- - use python pandoc bindings?
- - use python-markdown(2)?
  - Refuse to overwrite foo.pdf if foo.md doesn't exist
  - Use event-based watching (inotify?)
+ - weasyprint v51 kerning sucks
