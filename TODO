@@ -17,3 +17,7 @@
  - support for en-dashes etc (smartypants)
  - look at all markdown extensions
  - Image captions (markdown-captions)
+ - Add -s <CSS> option?
+ - Fix logging. -v for verbosity?
+ - Add a version?
+ - write foo.html? Or in a temporary dir? -k option to keep html? Or to write it in the first place?
