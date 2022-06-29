@@ -1,16 +1,38 @@
----
-title: MDF showcase document
+title:  MDF showcase document
+date:   %a %d %B, %Y
 author: Jane Smith
-date: 12 February 2020
----
+        Joe Smith
+
+
+
+<!-- something about markdown -->
+
+
+<!--
+# Metadata tags
+
+At the very top of the document, you can add metadata tags as `tag: value`.
+
+ - The tags `title`, `date`, and `author` are special and will be presented in a header at the top of the first page.
+ - Tags can continue over multiple lines, and are presented on separate lines.
+ - The date tag can be an arbitrary string, but any [strftime](https://strftime.org/) tags are formatted for the date of compilation. Assuming the date is 28 June, 2022:
+    - `1 Jan 2022` stays `1 Jan 2022`
+    - `%a %d %B, %Y` becomes `Tue 28 June, 2022`
+    - `%Y-%m-%d` becomes `2022-06-28`
+ - An empty line denotes the end of the tags and the start of the document. This empty line is not optional.
+
+Metadata tags for this document:
+-->
 
 ```
----
-title: MDF showcase document
+title:  MDF showcase document
+date:   %a %d %B, %Y
 author: Jane Smith
-date: 12 February 2020
----
+        Joe Smith
+
 ```
+
+
 
 # # Header 1
 
@@ -20,10 +42,7 @@ Proin nec risus ac urna semper ultrices id ut libero.
 Quisque nec vulputate elit, id mollis nulla.
 Donec eleifend blandit felis eu fermentum.
 Duis faucibus eros non bibendum cursus.
-Fusce ut gravida arcu, et vulputate erat.
 Duis et porttitor sem.
-Fusce pulvinar mattis enim nec luctus.
-Donec quis fringilla justo.
  
 ## ## Header 2
 
@@ -33,7 +52,6 @@ Donec molestie blandit egestas.
 Integer volutpat nunc venenatis orci bibendum condimentum.
 Nunc commodo tempus lorem sed sodales.
 Phasellus id diam in tellus imperdiet interdum.
-Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos.
 
 ### ### Header 3
 
@@ -42,10 +60,7 @@ Duis vehicula, dolor nec venenatis interdum, erat felis condimentum nunc, a aliq
 Vestibulum eget neque ligula.
 Duis eget urna ac eros cursus laoreet et ac justo.
 Nulla varius maximus lectus.
-Pellentesque aliquet lectus vel sem maximus placerat.
 In quis tristique nulla, vel lobortis orci.
-Morbi venenatis vehicula nulla a faucibus.
-Morbi iaculis cursus justo a condimentum.
 
 #### #### Header 4
 
@@ -65,137 +80,86 @@ Nunc scelerisque neque eget feugiat facilisis.
 Force a line break␣␣  
 by ending a line in two spaces.
 
-Force a page break with `<div style="page-break-before: always;"></div>`:
+Force a page break with `<page-break />`
 
-<div style="page-break-before: always;"></div>
-
-
+<page-break />
 
 
 
-<style>
-  table.syntax > tbody > tr:nth-child(odd) { background: none; }
-  table.syntax > tbody > tr > td,th { padding: 10px 20px; }
-  table.syntax td.center { text-align: center; }
-  table.syntax table tr.header { background: none; } /* why is this necessary? */
+# Inline formatting
+
+<style id="inline-fmt-table">
+  style#inline-fmt-table + table tr:nth-child(odd) { background: none; }
+  style#inline-fmt-table  + table td { padding: 10px 50px; }
+  style#inline-fmt-table  + table th { padding: 10px 50px; }
 </style>
-<table class="syntax">
-  <tr>
-    <td class="center">**bold**</td>
-    <td>`**bold**`</td>
-  </tr>
-  <tr>
-    <td class="center">_italic_</td>
-    <td>`_italic_`</td>
-  </tr>
-  <tr>
-    <td class="center">~~strikethrough~~</td>
-    <td>`~~strikethrough~~`</td>
-  </tr>
-  <tr>
-    <td class="center">`verbatim`</td>
-    <td>`` `verbatim` ``</td>
-  </tr>
-  <tr>
-    <td class="center">^super^script</td>
-    <td>`^super^script`</td>
-  </tr>
-  <tr>
-    <td class="center">~sub~script</td>
-    <td>`~sub~script`</td>
-  </tr>
-  <tr>
-    <td class="center">literal \*</td>
-    <td>`literal \*`</td>
-  </tr>
-  <tr>
-    <td class="center">en-dash: --</td>
-    <td>`en-dash: --`</td>
-  </tr>
-  <tr>
-    <td class="center"><https://example.com/></td>
-    <td>`<https://example.com/>`</td>
-  </tr>
-  <tr>
-    <td class="center">[Named Link](https://example.com/)</td>
-    <td>`[Named Link](https://example.com/)`</td>
-  </tr>
-  <tr>
-    <td class="center">[Link to Header 1](#header-1) <br>(broken in wkhtmlpdf)</td>
-    <td>`[Link to Header 1](#header-1)`</td>
-  </tr>
-  <tr>
-    <td class="center">Footnote[^1]</td>
-    <td>
-<pre>Footnote[^1]
-[^1] This is a footnote.</pre></td>
-  </tr>
-[^1]: This is a footnote.
+
+Rendered                                   | Code
+-------:                                   | ----
+**bold**                                   | `**bold**`
+_italic_                                   | `_italic_`
+<s>strikethrough</s>                       | `<s>strikethrough</s>`
+`verbatim`                                 | `` `verbatim` ``
+<sup>super</sup>script                     | `<sup>super</sup>script`
+<sub>sub</sub>script                       | `<sub>sub</sub>script`
+literal \*                                 | `literal \*`
+<https://example.com/>                     | `<https://example.com/>`
+[Named Link](https://example.com/)         | `[Named Link](https://example.com/)`
 
 
-<tr>
-<td class="center"><span style="padding: 1px 2px; color: white; background-color: red;">custom HTML</span></td>
-<td>
-<pre>&lt;span style="padding: 1px 2px;
-color: white; background-color: red;">
-custom HTML&lt;/span></pre>
-</td>
-</tr>
 
-<tr>
-<td>
-
- - Make a list with a dash,
- * Or an asterisk.
-   - Indent for sublist.
-
-</td>
-<td>
-<pre> - Make a list with a dash,
- * Or an asterisk.
-   - Indent for sublist.</pre>
-</td>
-</tr>
+<page-break />
+# Block Formatting
 
 
-<tr>
-<td>
+## Unordered Lists
 
- 1. Ordered lists with starting number.
- 1. Next items are automatic.
+ - Make a list by starting each line with a dash and a space,
+ * Or an asterisk,
+ + Or a plus.
+    - Indent at least three more spaces to make a sublist.
 
-</td>
-<td>
-<pre> 1. Ordered lists with starting number.
- 1. Next items are automatic.</pre>
-</td>
-</tr>
+```
+ - Make a list by starting each line with a dash and a space,
+ * Or an asterisk,
+ + Or a plus.
+    - Indent at least three more spaces to make a sublist.
+```
 
-<tr>
-<td>
+
+## Ordered Lists
+
+ 2. Ordered lists with starting number.
+ 3. Next items are automatic.
+
+```
+ 2. Ordered lists with starting number.
+ 3. Next items are automatic.
+```
+
+
+## Quote Blocks
 
 > He said.
 > 
 > > She said.
 
-</td>
-<td>
-<pre>> He said.
+```
+> He said.
 > 
-> > She said.</pre>
-</td>
-</tr>
+> > She said.
+```
 
-<tr>
-<td>
+
+## Code Blocks
+
 ```
 def uwc(line):
 	words = line.split()
 	unique = set(words)
 	return len(unique)
 ```
-</td>
-<td>
+
 ````
 ```
 def uwc(line):
@@ -204,56 +168,29 @@ def uwc(line):
 	return len(unique)
 ```
 ````
-</td>
-</tr>
 
-<tr>
-<td>
+
+## Images
 
 ![Caption.](image.png){width=5cm}
 
-</td>
-<td>
 ```
 ![Caption.](image.png){width=5cm}
 ```
-</td>
-</tr>
 
-<tr>
-<td>
 
-  Right    Left       Center    Default
--------    ------   ---------   -------
-12         12       12          12  
-123        123      123         123  
-1          1        1           1
+## Tables
 
-</td>
-<td>
+Right  |  Left  |  Center  |  Default
+----:  |  :---  |  :----:  |  -------
+12     |  12    |  12      |  12  
+123    |  123   |  123     |  123  
+1      |  1     |  1       |  1
+
 ```
-  Right    Left       Center    Default
--------    ------   ---------   -------
-12         12       12          12  
-123        123      123         123  
-1          1        1           1
+Right  |  Left  |  Center  |  Default
+----:  |  :---  |  :----:  |  -------
+12     |  12    |  12      |  12  
+123    |  123   |  123     |  123  
+1      |  1     |  1       |  1
 ```
-</td>
-</tr>
-
-<tr>
-<td>
- - [x] foo
- - [ ] bar
- - [ ] baz
-</td>
-<td>
-```
- - [x] foo
- - [ ] bar
- - [ ] baz
-```
-</td>
-</tr>
-</table>
-

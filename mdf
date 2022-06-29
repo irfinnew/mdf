@@ -67,10 +67,11 @@ class Document:
 		extensions = [
 			'meta',
 			'fenced_code',
-			'md_in_html',
 			'tables',
 			'attr_list',
+			'sane_lists',
 			# 'markdown_checklist.extension',
+			# 'markdown_strikethrough.extension',
 		]
 		parser = markdown.Markdown(extensions=extensions)
 		html_text = parser.convert(md_text)
