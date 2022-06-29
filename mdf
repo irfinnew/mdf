@@ -123,6 +123,8 @@ class Config:
 
 Config.install_path = os.path.dirname(os.path.realpath(sys.argv[0]))
 Config.config_path = os.path.expanduser('~/.mdf')
+Config.editor = os.environ.get('VISUAL', os.environ.get('EDITOR', 'editor'))
+Config.viewer = 'xdg-open'
 
 
 
@@ -164,16 +166,16 @@ if args.compile:
 			exit()
 
 if args.view:
-	evince_process = subprocess.Popen(['evince'] + [d.pdf_path for d in documents])
+	viewer_process = subprocess.Popen([Config.viewer] + [d.pdf_path for d in documents])
 
 if args.edit:
-	vim_process = subprocess.Popen(['vim'] + [d.md_path for d in documents])
+	editor_process = subprocess.Popen([Config.editor] + [d.md_path for d in documents])
 else:
-	vim_process = None
+	editor_process = None
 
 try:
 	if args.watch:
-		while vim_process is None or vim_process.poll() is None:
+		while editor_process is None or editor_process.poll() is None:
 			for d in documents:
 				d.compile()
 			time.sleep(0.1)  # FIXME: Yeah, polling :/
