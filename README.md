@@ -1,17 +1,17 @@
 # About
 
-_mdf_ allows you to quickly and easily prepare beautiful PDF documents of low to medium complexity.
+**_mdf_ allows you to quickly and easily prepare beautiful PDF documents from markdown.**
 
-Starting to use _mdf_ is as simple as invoking `mdf foo.md` from the command line.
-This will spawn your favourite editor and a PDF viewwer.
-Whenever you save source document in the editor, _mdf_ updates the PDF.
-For maximum effect, use a PDF viewer that watches for updates.
+Using _mdf_ is as simple as invoking `mdf foo.md` from the command line.
+This will spawn your favourite editor and a PDF viewer.
+Whenever you save the source document in the editor, _mdf_ updates the PDF.
+The PDF viewer should then notice that the PDF has been updated, and re-render it.
 
 _mdf_ uses [markdown](https://en.wikipedia.org/wiki/Markdown), a user-friendly plain-text formatting language.
 The markdown is compiled to HTML, styled by CSS, and then rendered to a PDF.
-For extra flexibility, it's also possible to use custom HTML straight in the source document, and to use your own CSS for custom styling.
+For extra flexibility, it's possible to use custom HTML straight in the source document, and you can use your own CSS for custom styling.
 
-As a quick example, this piece of markdown produces a heading, followed by a paragraph of text, followed by a bulleted list:
+As a quick example, this piece of markdown produces a heading, followed by a paragraph of text, and then a bulleted list:
 
 ```
 # Header
@@ -32,12 +32,12 @@ For a more comprehensive overview of what markdown can do, see [example.md](exam
 
 _mdf_ requires the following other pieces of software to run:
 
- - Python 3
- - [python-markdown](https://github.com/Python-Markdown/markdown)
- - [WeasyPrint](https://github.com/Kozea/WeasyPrint)
+ - Python 3.6 or later
+ - [python-markdown](https://github.com/Python-Markdown/markdown) v3.3 or later
+ - [WeasyPrint](https://github.com/Kozea/WeasyPrint) v53.0 or later
 
-Note that older versions of WeasyPrint (< v53.0?) have issues with ugly kerning. v55.0 is fine.
-For distributions that ship with an older WeasyPrint, such as Debian 11, you may want to use [virtualenv](https://docs.python.org/3/library/venv.html) to install a more recent version.
+WeasyPrint v51 works, but has [problems with ugly kerning](https://github.com/Kozea/WeasyPrint/issues/1199).
+For distributions that ship with an older version, such as Debian 11, you may want to use [virtualenv](https://docs.python.org/3/library/venv.html) to install a more recent version.
 
 _mdf_ itself is a single-file Python program, you only need to put it somewhere it can be found from your `$PATH`.
 Perhaps:
@@ -47,7 +47,7 @@ git clone git@github.com:mmoreaux/mdf.git ~/mdf
 ln -s ~/mdf/mdf ~/bin/ || sudo ln -s ~/mdf/mdf /usr/local/bin/
 ```
 
-The only other file _mdf_ needs is `style.css`, which should live right next to the executable.
+The only other file _mdf_ needs is `style.css`, which should live in the same directory as the Python file.
 
 
 
@@ -76,7 +76,7 @@ For example, if you don't like the blue headings, put this in `~/.mdf/style.css`
 h1, h2, h3, h4 { color: black; }
 ```
 
-By default, _mdf_ uses `sans-serif` as the font for everything, and it will differ from one system to another what actual font that resolves to.
+By default, _mdf_ uses `sans-serif` as the font, and it will differ from one system to another what actual font that resolves to.
 
 It's recommended to choose a specific font, and set that in `~/.mdf/style.css`.
 For example, this will use [Gentium](https://fonts.google.com/specimen/Gentium+Basic) for the headings, [IosevkaTerm](https://typeof.net/Iosevka/) for verbatim/code, and [Ubuntu](https://fonts.google.com/specimen/Ubuntu) for everything else:
