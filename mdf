@@ -1,4 +1,8 @@
 #! /usr/bin/env python3
+# mdf - Quickly and easily make beautiful PDFs from markdown.
+#
+# Copyright 2020-2022 Marcel Moreaux
+# Licensed under BSD 3-clause. See LICENSE for details.
 
 import os
 import sys
