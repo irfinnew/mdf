@@ -79,11 +79,12 @@ class Document:
 		]
 		parser = markdown.Markdown(extensions=extensions)
 		html_text = parser.convert(md_text)
+		meta = dict(parser.Meta)  # Copy, because we'll reuse parser
 
 		headers = []
 		for name, tag in {'date': 'p', 'author': 'p', 'title': 'h1'}.items():
 			try:
-				txt = strip_p(parser.convert('<br>\n'.join(parser.Meta[name])))
+				txt = strip_p(parser.convert('<br>\n'.join(meta[name])))
 				if name == 'date':
 					txt = datetime.date.today().strftime(txt)
 				headers.append(f'<{tag} class="{name}">{txt}</{tag}>')
