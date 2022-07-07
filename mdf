@@ -74,6 +74,7 @@ class Document:
 			'tables',
 			'attr_list',
 			'sane_lists',
+			'smarty',
 			# 'markdown_checklist.extension',
 			# 'markdown_strikethrough.extension',
 		]
