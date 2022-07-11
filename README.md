@@ -1,3 +1,5 @@
+![MDF cover image](https://moreaux.nl/projects/mdf/github.png)
+
 # About
 
 **_mdf_ allows you to quickly and easily prepare beautiful PDF documents from markdown.**
