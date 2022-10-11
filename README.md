@@ -75,7 +75,7 @@ Any CSS in `~/.mdf/style.css` will be applied, and it overrides the styling prov
 
 For example, if you don't like the blue headings, put this in `~/.mdf/style.css`:
 ```
-h1, h2, h3, h4 { color: black; }
+h1, h2, h3, h4, header { color: black; }
 ```
 
 By default, _mdf_ uses `sans-serif` as the font, and it will differ from one system to another what actual font that resolves to.
