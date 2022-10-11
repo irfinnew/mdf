@@ -10,6 +10,7 @@ import time
 import datetime
 import argparse
 import subprocess
+import logging
 
 import markdown
 import weasyprint
@@ -131,6 +132,17 @@ Config.config_path = os.path.expanduser('~/.mdf')
 Config.editor = os.environ.get('VISUAL', os.environ.get('EDITOR', 'editor'))
 Config.viewer = 'xdg-open'
 
+
+logging.getLogger('weasyprint').addHandler(logging.StreamHandler(sys.stderr))
+##logger = logging.getLogger()
+##logger.setLevel(logging.NOTSET)
+#handler = logging.FileHandler('mdf.log')
+#handler.setLevel(logging.NOTSET)
+#format = '%(asctime)s %(levelname)8s: %(name)s.%(funcName)s -> %(message)s'
+#handler.setFormatter(logging.Formatter(format))
+##logger.addHandler(handler)
+#logging.getLogger('weasyprint').setLevel(logging.NOTSET)
+#logging.getLogger('weasyprint').addHandler(handler)
 
 
 # Parse command line arguments
