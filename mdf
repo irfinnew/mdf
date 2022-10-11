@@ -103,17 +103,19 @@ class Document:
 
 
 	def to_pdf(self):
+		print(f'base_url={os.path.dirname(self.md_path)}')
+		font_config = weasyprint.text.fonts.FontConfiguration()
 		wp = weasyprint.HTML(string=self.html, base_url=os.path.dirname(self.md_path))
 
-		stylesheets = [weasyprint.CSS(filename=f'{self.config.install_path}/style.css')]
-		if self.config.user_css:
+		stylesheets = [weasyprint.CSS(filename=f'{self.config.install_path}/style.css', font_config=font_config)]
+		if self.config.style_file:
 			try:
-				stylesheets.append(weasyprint.CSS(filename=f'{self.config.config_path}/style.css'))
+				stylesheets.append(weasyprint.CSS(filename=Config.style_file, font_config=font_config))
 			except FileNotFoundError:
 				pass
 
 		# FIXME: papersize
-		wp.write_pdf(self.pdf_path, stylesheets=stylesheets, presentational_hints=True)
+		wp.write_pdf(self.pdf_path, stylesheets=stylesheets, font_config=font_config, presentational_hints=True)
 
 	def __str__(self):
 		return repr(self)
@@ -129,6 +131,9 @@ class Config:
 
 Config.install_path = os.path.dirname(os.path.realpath(sys.argv[0]))
 Config.config_path = os.path.expanduser('~/.mdf')
+Config.styles_path = os.path.join(Config.config_path, 'style')
+Config.style_dir = None
+Config.style_file = None
 Config.editor = os.environ.get('VISUAL', os.environ.get('EDITOR', 'editor'))
 Config.viewer = 'xdg-open'
 
@@ -152,11 +157,22 @@ parser.add_argument('--force-compile', '-C', action='store_true', help='Compile 
 parser.add_argument('--watch', '-w', action='store_true', help='Watch document, compile if updated.')
 parser.add_argument('--edit', '-e', action='store_true', help='Edit document, and watch for updates.')
 parser.add_argument('--view', '-v', action='store_true', help='Launch PDF viewer for compiled document.')
-parser.add_argument('--no-user-css', '-U', action='store_true', help='Don\'t use ~/.mdf/style.css.')
+parser.add_argument('--style', '-s', type=str, help='FIXME')
 parser.add_argument('file', type=str, nargs='+', help='Input MarkDown file(s).')
 args = parser.parse_args()
 
-Config.user_css = not args.no_user_css
+fail_ok = False
+if not args.style:
+	args.style = 'default'
+	fail_ok = True
+style_dir = os.path.join(Config.styles_path, args.style)
+style_file = os.path.join(style_dir, 'style.css')
+if os.path.exists(style_file):
+	Config.style_dir = style_dir
+	Config.style_file = style_file
+elif not fail_ok:
+	print(f"Couldn't find {style_file}")
+	exit(1)
 
 if not (args.compile or args.force_compile or args.watch or args.edit):
 	args.edit = True
