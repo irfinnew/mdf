@@ -1,5 +1,5 @@
 body { font: 10pt sans-serif; }
-@page { margin: 10mm; }
+@page { margin: 0mm; padding: 10mm; }
 
 h1, h2, h3, h4, p, ol, ul, table, pre, blockquote, figure { margin: 7mm 0; }
 ul ul, ul ol, ol ul, ol ol { margin: 0; }
