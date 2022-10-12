@@ -6,7 +6,7 @@ ul ul, ul ol, ol ul, ol ol { margin: 0; }
 li { margin: 1mm; }
 
 h1, h2, h3, h4, header { color: #0366d6; font-weight: bold; page-break-after: avoid; margin-break: discard; }
-header { margin-bottom: 19mm; text-align: right; }
+header { text-align: right; overflow: auto; clear: both; }
 header h1.title, header h2.subtitle { margin: 0; float: left; clear: both; }
 header p.date, header p.author { margin: 0; }
 h1 { margin-top: 16mm; }
