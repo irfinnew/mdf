@@ -84,7 +84,7 @@ class Document:
 		meta = dict(parser.Meta)  # Copy, because we'll reuse parser
 
 		headers = []
-		for name, tag in {'date': 'p', 'author': 'p', 'title': 'h1'}.items():
+		for name, tag in {'title': 'h1', 'subtitle': 'h2', 'date': 'p', 'author': 'p'}.items():
 			try:
 				txt = strip_p(parser.convert('<br>\n'.join(meta[name])))
 				if name == 'date':

@@ -1,7 +1,8 @@
-title:  MDF showcase document
-date:   %a %d %B, %Y
-author: Jane Smith
-        Joe Smith
+title:    MDF showcase document
+subtitle: With a subtitle
+date:     %a %d %B, %Y
+author:   Jane Smith
+          Joe Smith
 
 
 
@@ -25,10 +26,11 @@ Metadata tags for this document:
 -->
 
 ```
-title:  MDF showcase document
-date:   %a %d %B, %Y
-author: Jane Smith
-        Joe Smith
+title:    MDF showcase document
+subtitle: With a subtitle
+date:     %a %d %B, %Y
+author:   Jane Smith
+          Joe Smith
 
 ```
 
