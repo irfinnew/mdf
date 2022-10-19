@@ -104,16 +104,19 @@ class Document:
 
 
 	def to_pdf(self):
-		print(f'base_url={os.path.dirname(self.md_path)}')
 		font_config = weasyprint.text.fonts.FontConfiguration()
 		wp = weasyprint.HTML(string=self.html, base_url=os.path.dirname(self.md_path))
 
 		stylesheets = [weasyprint.CSS(filename=f'{self.config.install_path}/style.css', font_config=font_config)]
-		if self.config.style_file:
+		style = self.config.style_file
+		print(f'{style=}')
+		if style:
 			try:
-				stylesheets.append(weasyprint.CSS(filename=Config.style_file, font_config=font_config))
-			except FileNotFoundError:
+				stylesheets.append(weasyprint.CSS(filename=style, font_config=font_config))
+			except FileNotFoundError as e:
+				print(e)
 				pass
+		print([s for s in stylesheets])
 
 		# FIXME: papersize
 		wp.write_pdf(self.pdf_path, stylesheets=stylesheets, font_config=font_config, presentational_hints=True)
@@ -130,15 +133,59 @@ class Document:
 class Config:
 	@classmethod
 	@property
+	def system_styles_path(cls):
+		return os.path.join(cls.install_path, 'style')
+
+	@classmethod
+	@property
+	def user_styles_path(cls):
+		return os.path.join(cls.config_path, 'style')
+
+	@classmethod
+	def find_style(cls, name):
+		skip_user = False
+		if name.startswith('mdf/'):
+			skip_user = True
+			name = name[4:]
+
+		system_style = os.path.join(cls.system_styles_path, name, 'style.css')
+		user_style = os.path.join(cls.user_styles_path, name, 'style.css')
+
+		if skip_user:
+			return system_style
+
+		if os.path.isfile(user_style):
+			return user_style
+
+		if os.path.isfile(system_style):
+			return system_style
+
+		return user_style
+
+	@classmethod
+	@property
 	def style_file(cls):
-		for style in [cls.style_cli, cls.style_doc, cls.style_base]:
+		for style in [cls.style_cli, cls.style_doc, cls.style_default]:
 			if style:
-				return os.path.join(cls.styles_path, style, 'style.css')
+				return cls.find_style(style)
+		return None
+
+	@classmethod
+	def find_styles_in(cls, path):
+		return [style for style in os.listdir(path) if os.path.isfile(os.path.join(path, style, 'style.css'))]
+
+	@classmethod
+	def list_styles(cls):
+		user_styles = cls.find_styles_in(cls.user_styles_path)
+		system_styles = [
+			f'mdf/{style}' if style in user_styles else style
+			for style in cls.find_styles_in(cls.system_styles_path)
+		]
+		return user_styles + system_styles
 
 Config.install_path = os.path.dirname(os.path.realpath(sys.argv[0]))
 Config.config_path = os.path.expanduser('~/.mdf')
-Config.styles_path = os.path.join(Config.config_path, 'style')
-Config.style_base = 'default'
+Config.style_default = 'default'
 Config.style_doc = None
 Config.style_cli = None
 Config.editor = os.environ.get('VISUAL', os.environ.get('EDITOR', 'editor'))
@@ -164,14 +211,19 @@ parser.add_argument('--force-compile', '-C', action='store_true', help='Compile 
 parser.add_argument('--watch', '-w', action='store_true', help='Watch document, compile if updated.')
 parser.add_argument('--edit', '-e', action='store_true', help='Edit document, and watch for updates.')
 parser.add_argument('--view', '-v', action='store_true', help='Launch PDF viewer for compiled document.')
-parser.add_argument('--style', '-s', type=str, help='FIXME')
-parser.add_argument('file', type=str, nargs='+', help='Input MarkDown file(s).')
+parser.add_argument('--style', '-s', type=str, help="Use STYLE for format the document. Defaults to 'default'. Use '-' to disable.")
+parser.add_argument('--list-styles', '-S', action='store_true', help='List available styles.')
+parser.add_argument('file', type=str, nargs='*', help='Input MarkDown file(s).')
 args = parser.parse_args()
 
-fail_ok = False
+if args.list_styles:
+	for style in Config.list_styles():
+		print(style)
+	exit()
+
 if args.style is not None:
 	if args.style == '-':
-		Config.style_base = None
+		Config.style_default = None
 	else:
 		Config.style_cli = args.style
 
@@ -185,6 +237,9 @@ if args.watch:
 if args.force_compile:
 	args.compile = True
 
+if not args.file:
+	print('You must specify a file to edit/render.')
+	exit(1)
 documents = [Document(f, Config) for f in args.file]
 print(documents)
 print(f'Weasyprint v{weasyprint.VERSION}')
