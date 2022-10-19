@@ -140,6 +140,19 @@ literal \*                                 | `literal \*`
 ```
 
 
+## Checklists
+
+ - [ ] This needs doing.
+ - [x] This is done!
+ - [ ] Yeah need to work on this...
+
+```
+ - [ ] This needs doing.
+ - [x] This is done!
+ - [ ] Yeah need to work on this...
+```
+
+
 ## Quote Blocks
 
 > He said.

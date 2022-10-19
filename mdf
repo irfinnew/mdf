@@ -76,7 +76,7 @@ class Document:
 			'attr_list',
 			'sane_lists',
 			'smarty',
-			# 'markdown_checklist.extension',
+			'markdown_checklist.extension',
 			# 'markdown_strikethrough.extension',
 		]
 		parser = markdown.Markdown(extensions=extensions)
