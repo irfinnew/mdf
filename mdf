@@ -107,7 +107,7 @@ class Document:
 		font_config = weasyprint.text.fonts.FontConfiguration()
 		wp = weasyprint.HTML(string=self.html, base_url=os.path.dirname(self.md_path))
 
-		stylesheets = [weasyprint.CSS(filename=f'{self.config.install_path}/style.css', font_config=font_config)]
+		stylesheets = [weasyprint.CSS(filename=self.config.base_style_file, font_config=font_config)]
 		style = self.config.style_file
 		print(f'{style=}')
 		if style:
@@ -140,6 +140,11 @@ class Config:
 	@property
 	def user_styles_path(cls):
 		return os.path.join(cls.config_path, 'style')
+
+	@classmethod
+	@property
+	def base_style_file(cls):
+		return cls.find_style('mdf/base')
 
 	@classmethod
 	def find_style(cls, name):
@@ -193,6 +198,7 @@ Config.viewer = 'xdg-open'
 
 
 logging.getLogger('weasyprint').addHandler(logging.StreamHandler(sys.stderr))
+logging.getLogger('MARKDOWN').addHandler(logging.StreamHandler(sys.stderr))
 ##logger = logging.getLogger()
 ##logger.setLevel(logging.NOTSET)
 #handler = logging.FileHandler('mdf.log')
