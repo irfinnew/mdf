@@ -113,6 +113,7 @@ class Document:
 			with open(filename) as fd:
 				lines = [line.strip('\r\n') for line in fd]
 		except OSError as e:
+			# FIXME: go to logger
 			print(e)
 			return []
 
