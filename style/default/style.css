@@ -1,3 +1,5 @@
+@import mdf/base;
+
 body { font: 10pt sans-serif; }
 
 h1, h2, h3, h4, header { color: #0366d6; font-weight: bold; }

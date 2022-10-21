@@ -4,6 +4,7 @@
 # Copyright 2020-2022 Marcel Moreaux
 # Licensed under BSD 3-clause. See LICENSE for details.
 
+import re
 import os
 import sys
 import time
@@ -103,20 +104,45 @@ class Document:
 			fd.write(self.html)
 
 
+	def load_css(self, name, font_config):
+		stylesheets = []
+
+		filename = Config.find_style(name)
+		try:
+			with open(filename) as fd:
+				lines = [line.strip('\r\n') for line in fd]
+		except OSError as e:
+			print(e)
+			return []
+
+		# Recursively load imports
+		while True:
+			match = re.match('^@import +([^"].*[^"]) *; *$', lines[0])
+			if not match:
+				break
+			stylesheets += self.load_css(match.group(1), font_config)
+			lines = lines[1:]
+
+		css = weasyprint.CSS(string='\n'.join(lines), base_url=filename, font_config=font_config)
+		stylesheets.append(css)
+		return stylesheets
+
 	def to_pdf(self):
 		font_config = weasyprint.text.fonts.FontConfiguration()
 		wp = weasyprint.HTML(string=self.html, base_url=os.path.dirname(self.md_path))
 
-		stylesheets = [weasyprint.CSS(filename=self.config.base_style_file, font_config=font_config)]
-		style = self.config.style_file
-		print(f'{style=}')
-		if style:
-			try:
-				stylesheets.append(weasyprint.CSS(filename=style, font_config=font_config))
-			except FileNotFoundError as e:
-				print(e)
-				pass
-		print([s for s in stylesheets])
+		if Config.style_cli:
+			stylesheets = self.load_css(Config.style_cli, font_config)
+		elif Config.style_doc:
+			stylesheets = self.load_css(Config.style_doc, font_config)
+		elif Config.style_default:
+			stylesheets = self.load_css(Config.style_default, font_config)
+		else:
+			stylesheets = []
+
+		print('styles:')
+		for s in stylesheets:
+			print(' - ', s.base_url)
 
 		# FIXME: papersize
 		wp.write_pdf(self.pdf_path, stylesheets=stylesheets, font_config=font_config, presentational_hints=True)
