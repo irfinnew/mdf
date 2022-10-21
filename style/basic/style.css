@@ -1,0 +1,21 @@
+@import _base;
+
+body { font: 10pt sans-serif; }
+
+h1, h2, h3, h4, header { font-weight: bold; }
+
+a { color: #0366d6; }
+
+pre, code { background-color: #eaeaea; }
+
+blockquote { border-left: 2pt solid #bbb; }
+
+table thead th, table tbody td { border-left: 1pt solid #aaa; }
+table tr td:first-child, table tr th:first-child { border: none; }
+tbody tr:nth-child(odd) { background-color: #e5e5ea; }
+
+/* Render checkboxes in weasyprint. */
+ul.checklist li { list-style: none; }
+ul.checklist li input { vertical-align: middle; margin-left: -2mm; margin-right: 1mm; }
+ul.checklist li input[type="checkbox"]:after { content: url("unchecked.svg"); }
+ul.checklist li input[type="checkbox"][checked]:after { content: url("checked.svg"); }
