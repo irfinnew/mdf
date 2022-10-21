@@ -82,9 +82,9 @@ Nunc scelerisque neque eget feugiat facilisis.
 Force a line break␣␣  
 by ending a line in two spaces.
 
-Force a page break with `<page-break />`
+Force a page break with `<pagebreak />`
 
-<page-break />
+<pagebreak />
 
 
 
