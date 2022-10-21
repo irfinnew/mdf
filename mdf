@@ -8,10 +8,11 @@ import re
 import os
 import sys
 import time
+import queue
 import datetime
 import argparse
 import subprocess
-import logging
+import logging, logging.handlers
 
 import markdown
 import weasyprint
@@ -127,9 +128,9 @@ class Document:
 		stylesheets.append(css)
 		return stylesheets
 
+
 	def to_pdf(self):
 		font_config = weasyprint.text.fonts.FontConfiguration()
-		wp = weasyprint.HTML(string=self.html, base_url=os.path.dirname(self.md_path))
 
 		if Config.style_cli:
 			stylesheets = self.load_css(Config.style_cli, font_config)
@@ -140,12 +141,22 @@ class Document:
 		else:
 			stylesheets = []
 
-		print('styles:')
-		for s in stylesheets:
-			print(' - ', s.base_url)
-
+		html = self.html
+		wp = weasyprint.HTML(string=html, base_url=os.path.dirname(self.md_path))
 		# FIXME: papersize
 		wp.write_pdf(self.pdf_path, stylesheets=stylesheets, font_config=font_config, presentational_hints=True)
+
+		errors = list(Config.errors())
+		if errors:
+			stylesheets.append(weasyprint.CSS(string='div#mdf-errors { position: fixed; top: 0; right: 0; padding: 1mm 7mm; background-color: #f99; border: 2mm solid red; z-index: 10000; }'))
+			html = self.html
+			ehtml = '\n'.join(['<div id="mdf-errors">'] + [f'<p>{e}</p>' for e in errors] + ['</div>', '', ''])
+			ehtml = ehtml + html
+			# FIXME: very ugly
+			wp = weasyprint.HTML(string=ehtml, base_url=os.path.dirname(self.md_path))
+			wp.write_pdf(self.pdf_path, stylesheets=stylesheets, font_config=font_config, presentational_hints=True)
+
+
 
 	def __str__(self):
 		return repr(self)
@@ -157,6 +168,8 @@ class Document:
 
 
 class Config:
+	permanent_errors = []
+
 	@classmethod
 	@property
 	def system_styles_path(cls):
@@ -214,6 +227,21 @@ class Config:
 		]
 		return user_styles + system_styles
 
+	@classmethod
+	def errors(cls):
+		for e in cls.permanent_errors:
+			yield e
+		while True:
+			try:
+				log = cls.log_queue.get_nowait()
+				if log.levelno >= logging.WARNING:
+					msg = f'{log.levelname}: {log.msg}'
+					msg = msg.replace('<', '&lt;')
+					msg = msg.replace('>', '&gt;')
+					yield msg
+			except queue.Empty:
+				break
+
 Config.install_path = os.path.dirname(os.path.realpath(sys.argv[0]))
 Config.config_path = os.path.expanduser('~/.mdf')
 Config.style_default = 'default'
@@ -223,8 +251,10 @@ Config.editor = os.environ.get('VISUAL', os.environ.get('EDITOR', 'editor'))
 Config.viewer = 'xdg-open'
 
 
-logging.getLogger('weasyprint').addHandler(logging.StreamHandler(sys.stderr))
-logging.getLogger('MARKDOWN').addHandler(logging.StreamHandler(sys.stderr))
+Config.log_queue = queue.SimpleQueue()
+logging.getLogger('weasyprint').addHandler(logging.handlers.QueueHandler(Config.log_queue))
+#logging.getLogger('weasyprint').addHandler(logging.StreamHandler(sys.stderr))
+#logging.getLogger('MARKDOWN').addHandler(logging.StreamHandler(sys.stderr))
 ##logger = logging.getLogger()
 ##logger.setLevel(logging.NOTSET)
 #handler = logging.FileHandler('mdf.log')
@@ -274,7 +304,10 @@ if not args.file:
 	exit(1)
 documents = [Document(f, Config) for f in args.file]
 print(documents)
-print(f'Weasyprint v{weasyprint.VERSION}')
+print(f'python-markdown v{markdown.__version__}')
+if weasyprint.__version__ < '53.0':
+	Config.permanent_errors.append(f'WARNING: WeasyPrint v{weasyprint.__version__} has issues with ugly kerning. Upgrade to at least v53.0.')
+print(f'Weasyprint v{weasyprint.__version__}')
 
 
 
@@ -302,20 +335,3 @@ try:
 			time.sleep(0.1)  # FIXME: Yeah, polling :/
 except KeyboardInterrupt:
 	pass
-
-
-
-#from html.parser import HTMLParser
-#
-#class MyHTMLParser(HTMLParser):
-#	def __init__(self, *args, **kwargs):
-#		super().__init__(*args, **kwargs)
-#		self.output = ''
-#
-#	def handle_starttag(self, tag, attrs):
-#		if tag == 'img':
-#			print('IMAGE', attrs)
-#
-#parser = MyHTMLParser()
-#
-#parser.feed(html)
