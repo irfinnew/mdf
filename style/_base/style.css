@@ -1,0 +1,35 @@
+@page { margin: 0mm; padding: 10mm; }
+
+body { font-size: 10pt; }
+
+h1, h2, h3, h4, p, ol, ul, table, pre, blockquote, figure { margin: 5mm 0; }
+ol, ul { padding: 0 0 0 8mm; }
+ul ul, ul ol, ol ul, ol ol { margin: 0; }
+li { margin: 3mm 0; }
+
+h1, h2, h3, h4, header { page-break-after: avoid; margin-break: discard; }
+h1 { margin-top: 13mm; }
+h2 { margin-top: 11mm; }
+h3 { margin-top: 9mm; }
+h4 { margin-top: 7mm; }
+
+header h1.title, header h2.subtitle { margin-top: 0; }
+header { margin-bottom: 15mm; }
+
+a { text-decoration: underline; }
+hr { margin: 6mm 0; }
+pagebreak { display: block; height: 0; margin: 0; padding: 0; break-after: always; }
+
+code { padding: 1pt 5pt; }
+pre { padding: 7pt 14pt; }
+pre code { padding: 0; }
+pre { break-inside: avoid; }
+
+blockquote { padding: 0.1pt 7mm; }
+blockquote p, blockquote blockquote { margin: 3mm 0; }
+
+table { border-collapse: collapse; }
+table thead th, table tbody td { padding: 1pt 10pt; }
+
+figure { text-align: center; }
+img { display: block; margin: 0 auto; }
