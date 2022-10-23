@@ -24,3 +24,4 @@
  - page numbers?
  - write and quit in editor doesn't rerender document
  - line break in a list results in a wonky list
+ - include fonts in styles
