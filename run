@@ -1,0 +1,5 @@
+#! /bin/sh
+
+MDF_PATH="$(dirname "$(readlink -f "$0")")"
+. "$MDF_PATH/venv/bin/activate"
+exec "$MDF_PATH/mdf" "$@"
