@@ -118,7 +118,7 @@ class Document:
 			return []
 
 		# Recursively load imports
-		while True:
+		while lines:
 			match = re.match('^@import +([^"].*[^"]) *; *$', lines[0])
 			if not match:
 				break
