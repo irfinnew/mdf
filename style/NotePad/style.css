@@ -3,10 +3,12 @@
 @import _BasicFonts;
 @import _LetterHeading;
 
+/*
 @font-face { font-family: ArchitectsDaughter; src: url(ArchitectsDaughter-Regular.ttf); }
 @font-face { font-family: ArchitectsDaughter; font-weight: bold; src: url(ArchitectsDaughter-Bold.ttf); }
 @font-face { font-family: ArchitectsDaughter; font-style: italic; src: url(ArchitectsDaughter-Italic.ttf); }
 @font-face { font-family: ArchitectsDaughter; font-weight: bold; font-style: italic; src: url(ArchitectsDaughter-BoldItalic.ttf); }
+*/
 
 body { font: 12pt ArchitectsDaughter, sans-serif; line-height: 1.1; }
 em { padding-right: 2pt; }
