@@ -8,8 +8,6 @@ pre, code { background-color: #eaeaea; }
 
 blockquote { border-left: 2pt solid #bbb; }
 
-table thead th, table tbody td { border-left: 1pt solid #aaa; }
-table tr td:first-child, table tr th:first-child { border: none; }
 tbody tr:nth-child(odd) { background-color: #e5e5ea; }
 
 /* Render checkboxes in weasyprint. */
