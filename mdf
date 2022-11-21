@@ -245,7 +245,7 @@ class Config:
 
 Config.install_path = os.path.dirname(os.path.realpath(sys.argv[0]))
 Config.config_path = os.path.expanduser('~/.mdf')
-Config.style_default = 'default'
+Config.style_default = 'Default'
 Config.style_doc = None
 Config.style_cli = None
 Config.editor = os.environ.get('VISUAL', os.environ.get('EDITOR', 'editor'))
