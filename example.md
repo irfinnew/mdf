@@ -83,7 +83,6 @@ Force a line break␣␣
 by ending a line in two spaces.
 
 Force a page break with `<pagebreak />`
-
 <pagebreak />
 
 
@@ -120,23 +119,25 @@ literal \*                                 | `literal \*`
  * Or an asterisk,
  + Or a plus.
     - Indent at least three more spaces to make a sublist.
+        - And again.
 
 ```
  - Make a list by starting each line with a dash and a space,
  * Or an asterisk,
  + Or a plus.
     - Indent at least three more spaces to make a sublist.
+        - And again.
 ```
 
 
 ## Ordered Lists
 
  2. Ordered lists with starting number.
- 3. Next items are automatic.
+ 2. Next items are automatic.
 
 ```
  2. Ordered lists with starting number.
- 3. Next items are automatic.
+ 2. Next items are automatic.
 ```
 
 
