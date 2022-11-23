@@ -5,7 +5,6 @@ author:   Jane Smith
           Joe Smith
 
 
-
 <!-- something about markdown -->
 
 
@@ -31,7 +30,6 @@ subtitle: With a subtitle
 date:     %a %d %B, %Y
 author:   Jane Smith
           Joe Smith
-
 ```
 
 
