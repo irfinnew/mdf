@@ -1,0 +1,4 @@
+/* Align header title and subtitle left, date and author right. */
+header { text-align: right; overflow: auto; clear: both; }
+header h1.title, header h2.subtitle { margin: 0; float: left; clear: both; }
+header p.date, header p.author { margin: 0; }
