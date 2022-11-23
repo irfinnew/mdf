@@ -2,6 +2,7 @@
 @import _BasicStyling;
 @import _BasicFonts;
 @import _LetterHeading;
+@import _PageNumbers;
 
 /*
 @font-face { font-family: ArchitectsDaughter; src: url(ArchitectsDaughter-Regular.ttf); }
@@ -10,7 +11,8 @@
 @font-face { font-family: ArchitectsDaughter; font-weight: bold; font-style: italic; src: url(ArchitectsDaughter-BoldItalic.ttf); }
 */
 
-body { font: 12pt ArchitectsDaughter, sans-serif; line-height: 1.1; }
+@page { font: 12pt ArchitectsDaughter; }
+body { font: 12pt ArchitectsDaughter; line-height: 1.1; }
 em { padding-right: 2pt; }
 
 h1, h2, h3, h4 { font-family: ArchitectsDaughter; font-weight: normal; display: table; border-bottom: 1pt solid #444; }

@@ -1,0 +1,9 @@
+@page {
+	@bottom-center {
+		content: counter(page) " / " counter(pages);
+		width: 90%;
+		text-align: right;
+		padding-bottom: 10mm;
+		color: #444;
+	}
+}

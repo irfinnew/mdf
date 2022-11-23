@@ -2,5 +2,6 @@
 @import _BasicStyling;
 @import _BasicFonts;
 @import _LetterHeading;
+@import _PageNumbers;
 
 h1, h2, h3, h4, header { color: #0366d6; }
