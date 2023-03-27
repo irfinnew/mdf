@@ -1,0 +1,2 @@
+< 53.0	Ugly kerning https://github.com/Kozea/WeasyPrint/issues/1199
+57.0	breaks font fallback (greek chars in Merriweather Sans render as " C ", instead of falling back to default font).
