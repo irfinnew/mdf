@@ -15,7 +15,7 @@
 body { font: 12pt ArchitectsDaughter; line-height: 1.1; }
 em { padding-right: 2pt; }
 
-h1, h2, h3, h4 { font-family: ArchitectsDaughter; font-weight: normal; display: table; border-bottom: 1pt solid #444; }
+h1, h2, h3, h4 { font-family: ArchitectsDaughter; font-weight: normal; text-decoration: underline; }
 header h1, header h2, header h3, header h4 { border-bottom: none; }
 
 /* Better list bullets */
