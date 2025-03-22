@@ -1,0 +1,33 @@
+@import _BasicMargins;
+@import _BasicStyling;
+@import _BasicFonts;
+@import _LetterHeading;
+@import _PageNumbers;
+
+@font-face { font-family: Excalifont; src: url(Excalifont-Regular.ttf); }
+@font-face { font-family: Excalifont; font-weight: bold; src: url(Excalifont-Bold.ttf); }
+@font-face { font-family: Excalifont; font-style: italic; src: url(Excalifont-Italic.ttf); }
+@font-face { font-family: Excalifont; font-weight: bold; font-style: italic; src: url(Excalifont-BoldItalic.ttf); }
+
+@page { font: 13pt Excalifont; }
+body { font: 13pt Excalifont; line-height: 1.1; color: #333; }
+/* The faux italic font causes italic text to almost hit regular text to the right. */
+em { padding-right: 2pt; }
+
+/* Purple headers. */
+header, h1, h2, h3, h4 { font-family: Excalifont; font-weight: normal; color: #6924a4; }
+/* Want this, but weasy-print doesn't support it:
+ * text-decoration: underline;
+ * text-decoration-skip-ink: auto;
+ * text-underline-offset: 3px;
+ * text-decoration-thickness: 2px;
+ */
+
+/* Better list bullets */
+ul li { list-style-type: "• "; }
+ul li li { list-style-type: "ο "; }
+ul li li li { list-style-type: "x "; }
+ul li li li li { list-style-type: "· "; }
+
+/* The TT font looks pretty big in comparison to the handwritten stuff; scale down. */
+pre, code { font-size: 10pt; }

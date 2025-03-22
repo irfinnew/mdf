@@ -1,6 +1,6 @@
 #! /bin/sh
 
-FONT="ArchitectsDaughter"
+FONT="Excalifont"
 BOLD=40
 SKEW=0.5
 
