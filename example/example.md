@@ -3,6 +3,7 @@ subtitle: With a subtitle
 date:     %a %d %B, %Y
 author:   Jane Smith
           Joe Smith
+style:    BantuBlue
 
 
 <!-- something about markdown -->
@@ -30,6 +31,7 @@ subtitle: With a subtitle
 date:     %a %d %B, %Y
 author:   Jane Smith
           Joe Smith
+style:    BantuBlue
 ```
 
 
