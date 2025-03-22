@@ -1,4 +1,4 @@
-![MDF cover image](https://moreaux.nl/projects/mdf/github.png)
+![MDF cover image](https://moreaux.nl/projects/mdf/github.png){width=15cm}
 
 # About
 
