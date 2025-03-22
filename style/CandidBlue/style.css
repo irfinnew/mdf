@@ -1,0 +1,11 @@
+@import _BasicMargins;
+@import _BasicStyling;
+@import _LetterHeading;
+@import _PageNumbers;
+
+h1, h2, h3, h4, header { color: #0366d6; }
+
+@page { font: 12pt Candara; }
+body { font: 12pt Candara; line-height: 1.2; }
+
+pre, code { font: 11pt FiraCode; font-variant-ligatures: none; }
