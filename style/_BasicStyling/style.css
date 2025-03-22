@@ -17,6 +17,6 @@ sub, sup { font-size: 70%; }
 
 /* Render checkboxes in weasyprint. */
 ul.checklist li { list-style: none; }
-ul.checklist li input { vertical-align: middle; margin-left: -2mm; margin-right: 1mm; }
+ul.checklist li input { display: inline-block; border: none; margin-left: -2mm; margin-right: 2mm; }
 ul.checklist li input[type="checkbox"]:after { content: url("unchecked.svg"); }
 ul.checklist li input[type="checkbox"][checked]:after { content: url("checked.svg"); }
