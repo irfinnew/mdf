@@ -1,7 +1,11 @@
 @import _BasicMargins;
 @import _BasicStyling;
-@import _BasicFonts;
 @import _LetterHeading;
 @import _PageNumbers;
 
 h1, h2, h3, h4, header { color: #0366d6; }
+
+@page { font: 11pt Gentium Basic, Gentium; }
+body { font: 11pt Gentium Basic, Gentium; }
+
+pre, code { font: 11pt FiraCode; font-variant-ligatures: none; }
