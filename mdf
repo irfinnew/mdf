@@ -85,7 +85,7 @@ class Document:
 		parser = markdown.Markdown(extensions=extensions)
 		html_text = parser.convert(md_text)
 		meta = dict(parser.Meta)  # Copy, because we'll reuse parser
-		Config.style_doc = ''.join(meta.get('style', [])) or None
+		Config.style_doc = ','.join(meta.get('style', [])) or None
 
 		headers = []
 		for name, tag in {'title': 'h1', 'subtitle': 'h2', 'date': 'p', 'author': 'p'}.items():
@@ -106,6 +106,16 @@ class Document:
 			fd.write(self.html)
 
 
+	def load_multi_css(self, namelist, font_config):
+		names = [n.strip(',') for n in namelist.split()]
+		names[0] = 'Default' if names[0] == '.' else names[0]
+
+		stylesheets = []
+		for name in names:
+			stylesheets += self.load_css(name, font_config)
+		return stylesheets
+
+
 	def load_css(self, name, font_config):
 		stylesheets = []
 
@@ -119,7 +129,11 @@ class Document:
 			return []
 
 		# Recursively load imports
+		# FIXME: only accepts @import lines at the very very top of the file
 		while lines:
+			if not lines[0].strip():
+				lines = lines[1:]
+				continue
 			match = re.match('^@import +([^"].*[^"]) *; *$', lines[0])
 			if not match:
 				break
@@ -135,11 +149,11 @@ class Document:
 		font_config = weasyprint.text.fonts.FontConfiguration()
 
 		if Config.style_cli:
-			stylesheets = self.load_css(Config.style_cli, font_config)
+			stylesheets = self.load_multi_css(Config.style_cli, font_config)
 		elif Config.style_doc:
-			stylesheets = self.load_css(Config.style_doc, font_config)
+			stylesheets = self.load_multi_css(Config.style_doc, font_config)
 		elif Config.style_default:
-			stylesheets = self.load_css(Config.style_default, font_config)
+			stylesheets = self.load_multi_css(Config.style_default, font_config)
 		else:
 			stylesheets = []
 
@@ -222,10 +236,10 @@ class Config:
 
 	@classmethod
 	def list_styles(cls):
-		user_styles = cls.find_styles_in(cls.user_styles_path)
+		user_styles = sorted(cls.find_styles_in(cls.user_styles_path))
 		system_styles = [
 			f'mdf/{style}' if style in user_styles else style
-			for style in cls.find_styles_in(cls.system_styles_path)
+			for style in sorted(cls.find_styles_in(cls.system_styles_path))
 		]
 		return user_styles + system_styles
 
