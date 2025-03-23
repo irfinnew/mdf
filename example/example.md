@@ -3,7 +3,7 @@ subtitle: With a subtitle
 date:     %a %d %B, %Y
 author:   Jane Smith
           Joe Smith
-style:    BantuBlue
+style:    Sapphire TextSoftBlack
 
 
 <!-- something about markdown -->
@@ -31,9 +31,8 @@ subtitle: With a subtitle
 date:     %a %d %B, %Y
 author:   Jane Smith
           Joe Smith
-style:    BantuBlue
+style:    Sapphire TextSoftBlack
 ```
-
 
 
 # # Header 1
@@ -53,7 +52,6 @@ Nunc et orci magna.
 Donec molestie blandit egestas.
 Integer volutpat nunc venenatis orci bibendum condimentum.
 Nunc commodo tempus lorem sed sodales.
-Phasellus id diam in tellus imperdiet interdum.
 
 ### ### Header 3
 
@@ -61,8 +59,6 @@ Praesent varius porta justo id placerat.
 Duis vehicula, dolor nec venenatis interdum, erat felis condimentum nunc, a aliquam mi nunc sed metus.
 Vestibulum eget neque ligula.
 Duis eget urna ac eros cursus laoreet et ac justo.
-Nulla varius maximus lectus.
-In quis tristique nulla, vel lobortis orci.
 
 #### #### Header 4
 
@@ -130,6 +126,8 @@ literal \*                                 | `literal \*`
 ```
 
 
+<pagebreak>
+
 ## Ordered Lists
 
  2. Ordered lists with starting number.
@@ -169,13 +167,6 @@ literal \*                                 | `literal \*`
 
 ## Code Blocks
 
-```
-def uwc(line):
-	words = line.split()
-	unique = set(words)
-	return len(unique)
-```
-
 ````
 ```
 def uwc(line):
@@ -185,6 +176,8 @@ def uwc(line):
 ```
 ````
 
+
+<pagebreak>
 
 ## Images
 
