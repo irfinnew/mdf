@@ -22,5 +22,13 @@ ul li li { list-style-type: "ο "; }
 ul li li li { list-style-type: "• "; }
 ul li li li li { list-style-type: "ο "; }
 
+/* Pretty checkboxes. */
+/* ul.checklist li:has(input[type="checkbox"]) { list-style-image: url("unchecked.svg"); } */
+/* ul.checklist li:has(input[type="checkbox"][checked]) { list-style-image: url("checked.svg"); } */
+ul.checklist li:has(input[type="checkbox"]) { list-style-image: none; list-style-type: "[ ]"; }
+ul.checklist li:has(input[type="checkbox"][checked]) { list-style-image: none; list-style-type: "[X]"; }
+ul.checklist li input { display: none; }
+ul.checklist li:before { content: ""; margin-left: 1mm; }
+
 /* The TT font looks pretty big in comparison to the handwritten stuff; scale down. */
 pre, code { font-size: 10pt; }

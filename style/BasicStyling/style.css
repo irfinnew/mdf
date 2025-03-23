@@ -15,8 +15,8 @@ tbody tr:nth-child(odd) { background-color: #e5e5ea; }
 
 sub, sup { font-size: 70%; }
 
-/* Render checkboxes in weasyprint. */
-ul.checklist li { list-style: none; }
-ul.checklist li input { display: inline-block; border: none; margin-left: -2mm; margin-right: 2mm; }
-ul.checklist li input[type="checkbox"]:after { content: url("unchecked.svg"); }
-ul.checklist li input[type="checkbox"][checked]:after { content: url("checked.svg"); }
+/* Pretty checkboxes. */
+ul.checklist li:has(input[type="checkbox"]) { list-style-image: url("unchecked.svg"); }
+ul.checklist li:has(input[type="checkbox"][checked]) { list-style-image: url("checked.svg"); }
+ul.checklist li input { display: none; }
+ul.checklist li:before { content: ""; margin-left: 1mm; }
