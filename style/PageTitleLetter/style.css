@@ -1,0 +1,8 @@
+/* Align header title and subtitle left, date and author right. */
+header { text-align: right; overflow: auto; clear: both; }
+header pagetitle, header subtitle { float: left; clear: both; }
+header date, header author { display: block; }
+
+/* Reset styling from PageTitleStacked. */
+header date + author::before { content: ""; }
+header author + author::before { content: ""; }

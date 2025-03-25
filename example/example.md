@@ -83,7 +83,7 @@ Force a page break with `<pagebreak />`
 
 
 
-# Inline formatting
+## Inline formatting
 
 <style id="inline-fmt-table">
   style#inline-fmt-table + table tr:nth-child(odd) { background: none; }
@@ -106,10 +106,10 @@ literal \*                                 | `literal \*`
 
 
 <page-break />
-# Block Formatting
+## Block Formatting
 
 
-## Unordered Lists
+### Unordered Lists
 
  - Make a list by starting each line with a dash and a space,
  * Or an asterisk,
@@ -128,7 +128,7 @@ literal \*                                 | `literal \*`
 
 <pagebreak>
 
-## Ordered Lists
+### Ordered Lists
 
  2. Ordered lists with starting number.
  2. Next items are automatic.
@@ -139,7 +139,7 @@ literal \*                                 | `literal \*`
 ```
 
 
-## Checklists
+### Checklists
 
  - [ ] This needs doing.
  - [x] This is done!
@@ -152,7 +152,7 @@ literal \*                                 | `literal \*`
 ```
 
 
-## Quote Blocks
+### Quote Blocks
 
 > He said.
 > 
@@ -165,7 +165,7 @@ literal \*                                 | `literal \*`
 ```
 
 
-## Code Blocks
+### Code Blocks
 
 ````
 ```
@@ -179,7 +179,7 @@ def uwc(line):
 
 <pagebreak>
 
-## Images
+### Images
 
 ![Caption.](image.png){width=5cm}
 
@@ -188,7 +188,7 @@ def uwc(line):
 ```
 
 
-## Tables
+### Tables
 
 Right  |  Left  |  Center  |  Default
 ----:  |  :---  |  :----:  |  -------

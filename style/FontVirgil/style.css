@@ -3,20 +3,19 @@
 @font-face { font-family: Excalifont; font-style: italic; src: url(Excalifont-Italic.ttf); }
 @font-face { font-family: Excalifont; font-weight: bold; font-style: italic; src: url(Excalifont-BoldItalic.ttf); }
 
-@page { font: 13pt Excalifont; }
-body, h1, h2, h3, h4 { font: 13pt Excalifont; line-height: 1.1; }
+html { font: 13pt Excalifont; line-height: 1.1; }
 /* The faux italic font causes italic text to almost hit regular text to the right. */
 em { padding-right: 2pt; }
 
 header, h1, h2, h3, h4 { font-weight: normal; }
-/* Want this, but weasy-print doesn't support it:
+/* Want this, but weasyprint doesn't support it:
  * text-decoration: underline;
  * text-decoration-skip-ink: auto;
  * text-underline-offset: 3px;
  * text-decoration-thickness: 2px;
  */
 
-/* Better list bullets */
+/* Better list bullets for this font. */
 ul li { list-style-type: "• "; }
 ul li li { list-style-type: "ο "; }
 ul li li li { list-style-type: "• "; }

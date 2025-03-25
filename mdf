@@ -88,12 +88,17 @@ class Document:
 		Config.style_doc = ','.join(meta.get('style', [])) or None
 
 		headers = []
-		for name, tag in {'title': 'h1', 'subtitle': 'h2', 'date': 'p', 'author': 'p'}.items():
+		for name in ['title', 'subtitle', 'date', 'author']:
 			try:
-				txt = strip_p(parser.convert('<br>\n'.join(meta[name])))
-				if name == 'date':
-					txt = datetime.date.today().strftime(txt)
-				headers.append(f'<{tag} class="{name}">{txt}</{tag}>')
+				header = ''
+				for txt in meta[name]:
+					txt = strip_p(parser.convert(txt))
+					if name == 'date':
+						txt = datetime.date.today().strftime(txt)
+					tag = 'pagetitle' if name == 'title' else name
+					header += f'<{tag}>{txt}</{tag}>'
+				if header:
+					headers.append(header)
 			except KeyError:
 				pass
 		if headers:

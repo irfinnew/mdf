@@ -1,8 +1,8 @@
 @import BasicMargins;
 @import BasicStyling;
 @import BasicFonts;
-@import BasicPageTitle;
-@import BasicPageNumbers;
+@import PageTitleLetter;
+@import PageNumbers;
 
 @import HeaderBlue;
 @import FontDejaVu;

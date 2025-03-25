@@ -1,0 +1,8 @@
+/* Aligh all header elements left, with nice separators for date and authors. */
+header date + author::before { content: "\0000a0⬥\0000a0\0000a0"; }
+header author + author::before { content: ", "; }
+
+/* Reset styling from PageTitleLetter. */
+header { text-align: left; }
+header pagetitle, header subtitle { float: none; }
+header date, header author { display: inline; }
