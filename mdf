@@ -106,7 +106,8 @@ class Document:
 		else:
 			headers = ''
 
-		self.html = f'<html>\n<body>\n{headers}\n{html_text}\n</body>\n</html>\n'
+		heads = f'<title>{meta["title"][0]}</title>\n' if 'title' in meta else ''
+		self.html = f'<html>\n<head>\n{heads}</head>\n<body>\n{headers}\n{html_text}\n</body>\n</html>\n'
 		with open('out.html', 'w') as fd:
 			fd.write(self.html)
 
