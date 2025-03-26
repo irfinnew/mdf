@@ -2,7 +2,7 @@
 header date + author::before { content: "\0000a0\0000a0\0000a0"; }
 header author + author::before { content: ", "; }
 
-/* Reset styling from PageTitleLetter. */
+/* Reset styling from PageHeadLetter. */
 header { text-align: left; }
 header pagetitle, header subtitle { float: none; }
 header date, header author { display: inline; }
