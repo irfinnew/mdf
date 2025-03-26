@@ -1,28 +1,42 @@
- - Use $EDITOR, system PDF viewer
- - Add configuration file
- - Add extra global CSS
- - Add per-document CSS
- - Watch CSS files, images
- - Do something smart with paper size
- - Make margins configurable
- - write README
- - write guide
- - Refuse to overwrite foo.pdf if foo.md doesn't exist
- - Use event-based watching (inotify?)
- - weasyprint v51 kerning sucks
- - support for strikethrough
- - support for superscript
- - support for subscript
- - support for checklists
- - support for en-dashes etc (smartypants)
- - look at all markdown extensions
- - Image captions (markdown-captions)
- - Add -s <CSS> option?
- - Fix logging. -v for verbosity?
- - Add a version?
- - write foo.html? Or in a temporary dir? -k option to keep html? Or to write it in the first place?
- - page numbers?
- - write and quit in editor doesn't rerender document
- - line break in a list results in a wonky list (cannot reproduce?)
- - include fonts in styles
- - Excalifont
+Markdown / formatting:
+ - Allow single *asterisks* for bold?
+ - Better syntax for <s>strikethrough</s> ?
+ - Better syntax for <sub> and <sup> ?
+ - Support for en-dashes etc? (smartypants)
+ - Check out all markdown extensions, see if there's anything good in there.
+ - Fix image captions (currently don't show at all). (markdown-captions?)
+
+Invocation
+ - Watch all dependent files for changes (CSS files, images, mdf itself).
+ - Always compile when mdf starts editor?
+ - Refuse to overwrite foo.pdf if foo.md doesn't exist.
+ - Write and quit in editor quits mdf without re-rendering document.
+ - Add configuration file?
+   - Overriding editor
+   - Overriding PDF viewer
+   - Overriding default style
+   - Overriding paper size
+ - Start versioning MDF.
+ - Use event-based file watching instead of polling. (inotify?)
+
+Styles
+ - Make style to repeat page head on every page.
+ - Allow doing something like @import Font[Comic Sans]; or HeadingColor[orange];
+ - Allow always including certain custom rules somehow (e.g.: always include Font Awesome).
+ - Allow CSS: tags in document for custom styling? Or is <style> enough?
+ - Allow supplying a foo.css along with foo.md?
+ - Allow specifying paper size somehow. System default? Custom margins?
+ - Bundle the relevant fonts with the built-in styles? (DejaVu, Ubuntu, Virgil, Gentium)
+
+Logging
+ - "foo.css" not found prints through editor, redirect somewhere.
+ - Better capture all errors/warnings.
+ - Support configuration of where to redirect errors; separate window, stdout, PDF, file, ???
+ - Verbosity settings support.
+
+Documentation
+ - Improve README.
+ - Write advanced guide for customization, writing styles, etc.
+ - Document buggy libs?
+   - Weasyprint <v53 kerning problems?
+   - Linebreak in a list resulted in wonky rendering at some point? (cannot reproduce)
