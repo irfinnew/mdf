@@ -1,0 +1,73 @@
+/* Set sane margins and padding. */
+@page { margin: 10mm; }
+
+h1, h2, h3, h4, p, ol, ul, table, pre, blockquote, figure { margin: 5mm 0; }
+ol, ul { padding: 0 0 0 8mm; }
+ul ul, ul ol, ol ul, ol ol { margin: 0; }
+li { margin: 3mm 0; }
+
+h1 { margin-top: 13mm; }
+h2 { margin-top: 11mm; }
+h3 { margin-top: 9mm; }
+h4 { margin-top: 7mm; }
+header { margin-bottom: 15mm; }
+
+hr { margin: 6mm 0; }
+code { padding: 1pt 5pt; }
+pre { padding: 7pt 14pt; }
+pre code { padding: 0; }
+table thead th, table tbody td { padding: 1pt 10pt; }
+img { display: block; margin: 0 auto; }
+blockquote { padding: 0.1pt 7mm; }
+blockquote p, blockquote blockquote { margin: 3mm 0; }
+
+
+/* Fonts and sizes. */
+html { font-family: sans-serif; }
+pre, code { font-family: monospace; }
+
+html { font-size: 11pt; }
+h1 { font-size: 1.7rem; }
+h2, header pagetitle { font-size: 1.45rem; }
+h3, header subtitle { font-size: 1.2rem; }
+h4, header date, header author { font-size: 1rem; }
+sub, sup { font-size: 70%; }
+
+
+/* Colors. */
+a { color: #0366d6; }
+pre, code { background-color: #eaeaea; }
+blockquote { background-color: #fff7bb; border-left: 2pt solid #e5d055; }
+tbody tr:nth-child(odd) { background-color: #e5e5ea; }
+
+
+/* General styling. */
+em { font-style: italic; }
+strong { font-weight: bold; }
+h1, h2, h3, h4, header { font-weight: bold; }
+h1, h2, h3, h4, header { page-break-after: avoid; margin-break: discard; }
+a { text-decoration: underline; }
+pagebreak { display: block; height: 0; margin: 0; padding: 0; break-after: always; }
+pre { break-inside: avoid; }
+table { border-collapse: collapse; }
+figure { text-align: center; }
+
+
+/* The deeply nested list bullets tend to be ugly, simply alternate these two. */
+ul li { list-style-type: "• "; }
+ul li li { list-style-type: "◦ "; }
+ul li li li { list-style-type: "• "; }
+ul li li li li { list-style-type: "◦ "; }
+
+
+/* Pretty checkboxes. */
+ul.checklist li:has(input[type="checkbox"]) { list-style-image: url("unchecked.svg"); }
+ul.checklist li:has(input[type="checkbox"][checked]) { list-style-image: url("checked.svg"); }
+ul.checklist li input { display: none; }
+ul.checklist li:before { content: ""; margin-left: 1mm; }
+
+
+/* Default page head layout; date + authors on one line with nice separtors. */
+header pagetitle, header subtitle { display: block; }
+header date + author::before { content: "\0000a0\0000a0|\0000a0\0000a0\0000a0"; }
+header author + author::before { content: ", "; }

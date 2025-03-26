@@ -1,7 +1,5 @@
-@import BasicMargins;
-@import BasicStyling;
-@import BasicFonts;
-@import PageHeadLetter;
+@import Base;
+@import LetterHead;
 @import PageNumbers;
 
 @import FontDejaVu;

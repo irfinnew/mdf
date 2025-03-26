@@ -1,9 +1,9 @@
-title:    MDF showcase document
+title:    MDF showcase
 subtitle: With a subtitle
 date:     %a %d %B, %Y
 author:   Jane Smith
           Joe Smith
-style:    Sapphire TextSoftBlack
+style:    Sapphire
 
 
 <!-- something about markdown -->
