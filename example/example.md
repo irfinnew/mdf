@@ -3,7 +3,7 @@ subtitle: With a subtitle
 date:     %a %d %B, %Y
 author:   Jane Smith
           Joe Smith
-style:    Sapphire
+style:    Sapphire TextSoftBlack
 
 
 <!-- something about markdown -->
