@@ -27,6 +27,7 @@ Styles
  - Allow supplying a foo.css along with foo.md?
  - Allow specifying paper size somehow. System default? Custom margins?
  - Bundle the relevant fonts with the built-in styles? (DejaVu, Ubuntu, Virgil, Gentium)
+ - Improve checkboxes for FontVirgil
 
 Logging
  - "foo.css" not found prints through editor, redirect somewhere.
