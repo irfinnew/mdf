@@ -1,14 +1,14 @@
 /* Set sane margins and padding. */
-@page { margin: 10mm; }
+@page { margin: 10mm 20mm; }
 
-h1, h2, h3, h4, p, ol, ul, table, pre, blockquote, figure { margin: 5mm 0; }
+h1, h2, h3, h4, p, ol, ul, table, pre, blockquote, figure { margin: 3mm 0; }
 ol, ul { padding: 0 0 0 8mm; }
 ul ul, ul ol, ol ul, ol ol { margin: 0; }
 li { margin: 3mm 0; }
 
-h1 { margin-top: 13mm; }
-h2 { margin-top: 11mm; }
-h3 { margin-top: 9mm; }
+h1 { margin-top: 10mm; }
+h2 { margin-top: 9mm; }
+h3 { margin-top: 8mm; }
 h4 { margin-top: 7mm; }
 header { margin-bottom: 15mm; }
 
