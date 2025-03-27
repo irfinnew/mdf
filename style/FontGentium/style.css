@@ -1,1 +1,2 @@
-html { font: 14pt "Gentium Plus", "Gentium", "Gentium Basic", sans-serif; line-height: 1.1; }
+html { font-family: "Gentium Plus", "Gentium", "Gentium Basic", serif; font-size: 13pt; line-height: 1.25; }
+pre, code { font-size: 11pt; }

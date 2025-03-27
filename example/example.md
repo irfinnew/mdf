@@ -39,26 +39,24 @@ style:    Sapphire TextSoftBlack
 
 Lorem ipsum dolor sit amet, consectetur adipiscing elit.
 Cras rutrum at turpis in commodo.
-Proin nec risus ac urna semper ultrices id ut libero.
+Proin nec _risus ac urna semper ultrices_ id ut libero.
 Quisque nec vulputate elit, id mollis nulla.
-Donec eleifend blandit felis eu fermentum.
-Duis faucibus eros non bibendum cursus.
-Duis et porttitor sem.
+Donec eleifend blandit felis ex.
  
 ## ## Header 2
 
 Vestibulum tincidunt mi sed sem placerat, sodales faucibus lorem hendrerit.
 Nunc et orci magna.
 Donec molestie blandit egestas.
-Integer volutpat nunc venenatis orci bibendum condimentum.
-Nunc commodo tempus lorem sed sodales.
+Integer volutpat nunc venenatis orci bibendum.
+Nunc commodo **tempus lorem** sed sodales.
 
 ### ### Header 3
 
 Praesent varius porta justo id placerat.
-Duis vehicula, dolor nec venenatis interdum, erat felis condimentum nunc, a aliquam mi nunc sed metus.
+Duis vehicula, dolor nec venenatis interdum, erat felis condimentum nunc, a aliquam mi nunc sed `metus`.
 Vestibulum eget neque ligula.
-Duis eget urna ac eros cursus laoreet et ac justo.
+Duis eget urna ac eros cursus et ac justo.
 
 #### #### Header 4
 
@@ -66,6 +64,7 @@ Pellentesque nisl massa, maximus sed arcu vel, pharetra ultrices metus.
 Sed faucibus vel neque et tempus.
 In rhoncus vehicula lacinia.
 Nunc scelerisque neque eget feugiat facilisis.
+Duis et porttitor sem.
 
 0123456789
 % & # @ â é ň ç đ ß µ œ ø α β γ δ ε π σ ω Ω « » ¢ $ € £

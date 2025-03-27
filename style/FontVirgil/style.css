@@ -3,7 +3,8 @@
 @font-face { font-family: Excalifont; font-style: italic; src: url(Excalifont-Italic.ttf); }
 @font-face { font-family: Excalifont; font-weight: bold; font-style: italic; src: url(Excalifont-BoldItalic.ttf); }
 
-html { font: 13pt Excalifont; line-height: 1.1; }
+html { font-family: "Excalifont", sans-serif; font-size: 13pt; line-height: 1.3; }
+pre, code { font-size: 11pt; }
 /* The faux italic font causes italic text to almost hit regular text to the right. */
 em { padding-right: 2pt; }
 

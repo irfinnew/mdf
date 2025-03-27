@@ -23,10 +23,9 @@ blockquote p, blockquote blockquote { margin: 3mm 0; }
 
 
 /* Fonts and sizes. */
-html { font-family: sans-serif; }
-pre, code { font-family: monospace; }
+html { font-size: 11pt; font-family: sans-serif; line-height: 1.5; }
+pre, code { font-family: monospace; line-height: 1.2; }
 
-html { font-size: 11pt; }
 h1 { font-size: 1.7rem; }
 h2, header pagetitle { font-size: 1.45rem; }
 h3, header subtitle { font-size: 1.2rem; }
