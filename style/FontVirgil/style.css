@@ -8,7 +8,6 @@ pre, code { font-size: 11pt; }
 /* The faux italic font causes italic text to almost hit regular text to the right. */
 em { padding-right: 2pt; }
 
-header, h1, h2, h3, h4 { font-weight: normal; }
 /* Want this, but weasyprint doesn't support it:
  * text-decoration: underline;
  * text-decoration-skip-ink: auto;
