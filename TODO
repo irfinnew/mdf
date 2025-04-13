@@ -34,6 +34,7 @@ Logging
  - Better capture all errors/warnings.
  - Support configuration of where to redirect errors; separate window, stdout, PDF, file, ???
  - Verbosity settings support.
+ - Sometimes an error reported in the PDF that's fixed only goes away after 2 recompiles?
 
 Documentation
  - Improve README.
