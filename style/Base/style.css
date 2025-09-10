@@ -1,5 +1,5 @@
 /* Set sane margins and padding. */
-@page { margin: 10mm 20mm; }
+@page { margin: 13mm 17mm; }
 
 h1, h2, h3, h4, p, ol, ul, table, pre, blockquote, figure { margin: 3mm 0; }
 ol, ul { padding: 0 0 0 8mm; }
