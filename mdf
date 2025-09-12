@@ -19,6 +19,15 @@ import weasyprint
 
 
 
+# Make a class property. @property and @classmethod combination became unsupported :(
+class classproperty:
+	def __init__(self, func):
+		self.fget = func
+	def __get__(self, instance, owner):
+		return self.fget(owner)
+
+
+
 # Strip enclosing <p> tags
 def strip_p(s):
 	if s.lower().startswith('<p>') and s.lower().endswith('</p>'):
@@ -194,18 +203,15 @@ class Document:
 class Config:
 	permanent_errors = []
 
-	@classmethod
-	@property
+	@classproperty
 	def system_styles_path(cls):
 		return os.path.join(cls.install_path, 'style')
 
-	@classmethod
-	@property
+	@classproperty
 	def user_styles_path(cls):
 		return os.path.join(cls.config_path, 'style')
 
-	@classmethod
-	@property
+	@classproperty
 	def base_style_file(cls):
 		return cls.find_style('mdf/base')
 
@@ -230,8 +236,7 @@ class Config:
 
 		return user_style
 
-	@classmethod
-	@property
+	@classproperty
 	def style_file(cls):
 		for style in [cls.style_cli, cls.style_doc, cls.style_default]:
 			if style:
